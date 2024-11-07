@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini-SurveyMonkey</title>
+</head>
+<body>
+    <h1>Welcome to Mini-SurveyMonkey</h1>
+    <form th:action="@{/survey}" th:object="${survey}" method="post">
+        <label for="name">Survey Name:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+        <button type="submit">Create Survey</button>
+    </form>
+</body>
+</html>
