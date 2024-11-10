@@ -9,8 +9,11 @@ public class Survey {
     @Id
     @GeneratedValue
     private Long id;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
     private List<Question> questions;
+
     private String name;
 
     public Survey(){

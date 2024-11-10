@@ -4,21 +4,42 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Question {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "question_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Question {
 
     @Id
     @GeneratedValue
     private Long id;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Survey survey;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Answer> answers;
+
     private String surveyQuestion;
-    public Question(){}
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "question_type", insertable = false, updatable = false)
+    private QuestionType questionType;
+
+    public Question(){
+
+    }
 
     public Question(Survey survey, String question){
         this.survey = survey;
         this.surveyQuestion = question;
+    }
+
+    // Getter and setter for type
+    public QuestionType getType() {
+        return questionType;
+    }
+
+    protected void setType(QuestionType type) {
+        this.questionType = type;
     }
 
     public Long getId() {
