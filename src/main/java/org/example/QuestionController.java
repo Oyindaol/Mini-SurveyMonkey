@@ -36,6 +36,6 @@ public class QuestionController {
 
         Long questionId = question.getId();
 
-        return "redirect:/survey/" + surveyId + "/question/" + questionId + "/answer/create";
+        return "redirect:/survey/getbyid/" + surveyId;
     }
 }
