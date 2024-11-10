@@ -12,5 +12,8 @@
             <li th:each="answer : ${question.answers}" th:text="${answer.surveyAnswer}">answer</li>
         </ul>
     </div>
+    <a th:href="@{|/survey/${survey.id}/question/create|}" class="btn">Add a Question</a>
+    <p th:text="'link: http://localhost:8080/survey/' + ${survey.id} + '/respond'">Survey Title</p>
+
 </body>
 </html>
