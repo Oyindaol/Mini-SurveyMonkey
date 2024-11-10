@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Create a Question</h1>
-    <form th:action="@{|/survey/${surveyId}/question/create|}" th:object="${question}" method="post">
+    <form th:action="@{|/question/create|}" th:object="${question}" method="post">
         <label for="question">Question Text:</label>
         <input type="text" id="question" th:field="*{surveyQuestion}" required />
         <button type="submit">Create Question</button>
