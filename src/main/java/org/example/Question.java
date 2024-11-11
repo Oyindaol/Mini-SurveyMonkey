@@ -1,6 +1,8 @@
 package org.example;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +14,7 @@ public class Question {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Survey survey;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();
     private String surveyQuestion;
     public Question(){}
 

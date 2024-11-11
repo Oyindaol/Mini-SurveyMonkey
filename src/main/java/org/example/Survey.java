@@ -1,6 +1,8 @@
 package org.example;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,7 +12,7 @@ public class Survey {
     @GeneratedValue
     private Long id;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
     private String name;
 
     public Survey(){
