@@ -25,7 +25,7 @@ Multiple-choice Questions: Generate a pie chart summarizing the choices selected
 For Milestone 1, an early prototype was expected to demonstrate basic functionality. This prototype needed to showcase at least one operational use case, which collected data from the backend, processed it, and displayed the result (a simple display was acceptable). 
 
 We set up a GitHub repository with continuous integration (CI) and deployed the application live on Azure. We utilized GitHub features like Issues, Kanban boards, code reviews and integration testing. 
-Our team completed several key tasks to establish a functional prototype. We set up the project with a basic implementation of the MVC pattern and further developed the front end using HTML and CSS to enhance user interaction. Also, we planned out the database structure for the back end where data will be collected, processed, and displayed. Lastly, we wrote unit tests, set up the test environment, and created test paths and cases, making minor adjustments to other classes as needed. This work contributed to a foundation for Milestone 1.
+Our team completed several key tasks to establish a functional prototype. We set up the project with a basic implementation of the MVC pattern and further developed the front end using HTML and CSS to enhance user interaction. Also, we planned out the database structure for the back end where data will be collected, processed, and displayed. Lastly, we wrote unit tests, set up the test environment with Jacoco and Mockito, and created test paths and cases, making minor adjustments to other classes as needed. This work contributed to a foundation for Milestone 1.
 
 ![image](https://github.com/user-attachments/assets/c2e5f4eb-1d0c-46e9-afe0-7d2b9a06a375)
 
