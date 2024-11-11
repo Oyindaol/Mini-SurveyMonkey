@@ -33,6 +33,8 @@ Our team completed several key tasks to establish a functional prototype. We set
 ### This is our current Database Schema:
 ![image](https://github.com/user-attachments/assets/4a0262aa-6c72-4b56-9fed-072ae2e1824c)
 
+### Testing
+To test with Jacoco, simply use maven to test and a target folder will be generated. Then navigate to target/site/index.html and open the index.html in your preferred browser. There you will be able to view the coverage report.
 
 ## What's Next?
 For Milestone 2 we plan on implementing a landing home page for the Mini-Survey Monkey application which will allow users to choose either to create a survey or fill out a survey. Additionally, we want to restructure our Question class to handle the different types of Questions and overall further improve the front end and back end of the web application.
