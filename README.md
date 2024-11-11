@@ -39,6 +39,8 @@ To test with Jacoco, simply use maven to test and a target folder will be genera
 ## What's Next?
 For Milestone 2 we plan on implementing a landing home page for the Mini-Survey Monkey application which will allow users to choose either to create a survey or fill out a survey. Additionally, we want to restructure our Question class to handle the different types of Questions and overall further improve the front end and back end of the web application.
 
+Additional Note: We also plan on implementing the Feature Toggle Pattern in Spring, FF4J, as required for our presentation topic.
+
 
 
 
