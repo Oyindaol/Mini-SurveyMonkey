@@ -1,18 +1,51 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Survey</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form th:action="@{|/survey/${surveyId}/respond|}" method="post">-->
+<!--    <h1 th:text="'Survey: ' + ${survey.name}">Survey Title</h1>-->
+<!--    <div th:each="question : ${survey.questions}">-->
+<!--        <h2 th:text="${question.surveyQuestion}">question</h2>-->
+<!--        <label for="'answerText_' + ${question.id}" th:text="'Answer for Question ' + ${question.id} + ':'"></label>-->
+<!--        <input type="text" id="'answerText_' + ${question.id}" th:name="'answers[' + ${question.id} + '].response'">-->
+<!--    </div>-->
+<!--    <button type="submit">Submit Answer</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Survey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Response</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-<form th:action="@{|/survey/${surveyId}/respond|}" method="post">
+<header class="header">
     <h1 th:text="'Survey: ' + ${survey.name}">Survey Title</h1>
-    <div th:each="question : ${survey.questions}">
-        <h2 th:text="${question.surveyQuestion}">question</h2>
-        <label for="'answerText_' + ${question.id}" th:text="'Answer for Question ' + ${question.id} + ':'"></label>
-        <input type="text" id="'answerText_' + ${question.id}" th:name="'answers[' + ${question.id} + '].response'">
-    </div>
-    <button type="submit">Submit Answer</button>
-</form>
+</header>
+<main class="survey-response-container">
+    <form th:action="@{|/survey/${surveyId}/respond|}" method="post">
+        <div th:each="question : ${survey.questions}" class="question-group">
+            <h2 th:text="${question.surveyQuestion}">Question</h2>
+            <label th:for="'answerText_' + ${question.id}" th:text="'Your Answer:'"></label>
+            <label>
+                <input type="text"
+                       th:id="'answerText_' + ${question.id}"
+                       th:name="'answers[' + ${question.id} + '].response'"
+                       placeholder="Type your answer here"
+                       required />
+            </label>
+        </div>
+        <button type="submit">Submit Answers</button>
+    </form>
+</main>
 </body>
 </html>
+
+
