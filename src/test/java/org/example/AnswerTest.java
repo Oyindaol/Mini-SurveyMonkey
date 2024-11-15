@@ -10,7 +10,7 @@ public class AnswerTest {
         Survey survey = new Survey();
         survey.setId(1L);
         survey.setName("Customer Feedback Survey");
-        Question question = new Question(survey, "How satisfied are you with our service?");
+        Question question = new Question(survey, "How satisfied are you with our service?", Question.QuestionType.OPEN_ENDED);
         String answerText = "Very Satisfied";
 
         Answer answer = new Answer(question, answerText);
@@ -47,9 +47,9 @@ public class AnswerTest {
         Survey survey = new Survey();
         survey.setId(1L);
         survey.setName("Customer Feedback Survey");
-        Question initialQuestion = new Question(survey, "How satisfied are you with our service?");
+        Question initialQuestion = new Question(survey, "How satisfied are you with our service?", Question.QuestionType.OPEN_ENDED);
         Answer answer = new Answer(initialQuestion, "Satisfied");
-        Question newQuestion = new Question(survey, "How likely are you to recommend our product?");
+        Question newQuestion = new Question(survey, "How likely are you to recommend our product?", Question.QuestionType.OPEN_ENDED);
 
         answer.setQuestion(newQuestion);
         Question retrievedQuestion = answer.getQuestion();

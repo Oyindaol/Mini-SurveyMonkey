@@ -43,6 +43,7 @@ public class Question {
         this.survey = survey;
         this.surveyQuestion = question;
         this.questionType = questionType;
+        this.options = new ArrayList<>();
     }
 
     public Long getId() {
