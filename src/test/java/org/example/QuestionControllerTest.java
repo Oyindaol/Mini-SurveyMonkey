@@ -54,7 +54,7 @@ public class QuestionControllerTest {
         when(questionRepository.save(any(Question.class))).thenReturn(question);
         when(surveyRepository.save(any(Survey.class))).thenReturn(survey);
 
-        String redirectUrl = questionController.createQuestion(1L, question);
+        String redirectUrl = questionController.createQuestion(1L, question,"OPEN_ENDED",null);
         assertEquals("redirect:/survey/getbyid/1", redirectUrl);
 
         verify(questionRepository).save(question);
@@ -68,7 +68,7 @@ public class QuestionControllerTest {
         Question question = new Question();
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            questionController.createQuestion(1L, question);
+            questionController.createQuestion(1L, question,"OPEN_ENDED",null);
         });
 
         assertEquals("Survey not found", exception.getMessage());

@@ -14,7 +14,7 @@ public class QuestionTest {
         survey.setName("Customer Feedback Survey");
         String questionText = "How satisfied are you with our service?";
 
-        Question question = new Question(survey, questionText);
+        Question question = new Question(survey, questionText, Question.QuestionType.OPEN_ENDED);
 
         assertEquals(survey, question.getSurvey());
         assertEquals(questionText, question.getSurveyQuestion());
@@ -28,7 +28,7 @@ public class QuestionTest {
         survey.setId(1L);
         survey.setName("Customer Feedback Survey");
         String questionText = "How satisfied are you with our service?";
-        Question question = new Question(survey, questionText);
+        Question question = new Question(survey, questionText, Question.QuestionType.OPEN_ENDED);
 
         String retrievedQuestion = question.getSurveyQuestion();
 
@@ -41,7 +41,7 @@ public class QuestionTest {
         survey.setId(1L);
         survey.setName("Customer Feedback Survey");
         String initialQuestion = "How satisfied are you with our service?";
-        Question question = new Question(survey, initialQuestion);
+        Question question = new Question(survey, initialQuestion, Question.QuestionType.OPEN_ENDED);
         String updatedQuestion = "How likely are you to recommend our product?";
 
         question.setSurveyQuestion(updatedQuestion);
@@ -55,7 +55,7 @@ public class QuestionTest {
         Survey survey = new Survey();
         survey.setId(1L);
         survey.setName("Customer Feedback Survey");
-        Question question = new Question(survey, "How satisfied are you with our service?");
+        Question question = new Question(survey, "How satisfied are you with our service?", Question.QuestionType.OPEN_ENDED);
 
         List<Answer> answers = question.getAnswers();
 
@@ -68,7 +68,7 @@ public class QuestionTest {
         Survey survey = new Survey();
         survey.setId(1L);
         survey.setName("Customer Feedback Survey");
-        Question question = new Question(survey, "How satisfied are you with our service?");
+        Question question = new Question(survey, "How satisfied are you with our service?", Question.QuestionType.OPEN_ENDED);
 
         List<Answer> newAnswers = new ArrayList<>();
         Answer answer1 = new Answer();

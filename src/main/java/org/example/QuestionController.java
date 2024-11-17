@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("survey/{surveyId}/question")
 public class QuestionController {
@@ -23,16 +26,31 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String createQuestion(@PathVariable Long surveyId, @ModelAttribute Question question) {
+    public String createQuestion(@PathVariable Long surveyId, @ModelAttribute Question question, @RequestParam("choices")
+            String questionType, @RequestParam(value = "multipleChoiceInput", required = false) String answerChoice) {
 
         Survey survey = surveyRepository.findById(surveyId)
                 .orElseThrow(() -> new RuntimeException("Survey not found"));
 
+        question.setQuestionType(Question.QuestionType.valueOf(questionType));
+        if (questionType.equals("MULTIPLE_CHOICE")){
+            String[] temp = answerChoice.split(",");
+            question.setOptions(new ArrayList<>());
+            for(String s:temp){
+                question.getOptions().add(s);
+            }
+        }
         question.setSurvey(survey);
         survey.addQuestion(question);
 
         questionRepository.save(question);
         surveyRepository.save(survey);
+
+        System.out.println(questionType);
+        System.out.println(question.getQuestionType());
+        System.out.println(answerChoice);
+        System.out.println(question.getOptions());
+        System.out.println();
 
         Long questionId = question.getId();
 

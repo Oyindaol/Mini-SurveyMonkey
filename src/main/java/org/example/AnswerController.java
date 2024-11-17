@@ -43,6 +43,9 @@ public class AnswerController {
         model.addAttribute("survey", survey);
 
         model.addAttribute("answer", new Answer());
+        for (Question question:survey.getQuestions()){
+            System.out.println(question.getQuestionType());
+        }
         return "answersurvey";
     }
 
