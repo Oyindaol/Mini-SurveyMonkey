@@ -20,22 +20,6 @@ public class AnswerController {
     @Autowired
     private SurveyRepository surveyRepository;
 
-    @GetMapping("/question/{questionId}/answer/create")
-    public String displayAnswerForm(@PathVariable Long surveyId, @PathVariable Long questionId, Model model) {
-        model.addAttribute("surveyId", surveyId);
-        model.addAttribute("questionId", questionId);
-        model.addAttribute("answer", new Answer());
-        return "submitanswer";
-    }
-
-    @PostMapping("/question/{questionId}/answer/create")
-    public String createAnswer(@PathVariable Long surveyId, @PathVariable Long questionId, @ModelAttribute Answer answer) {
-        Question question = questionRepository.findById(questionId).orElseThrow(() -> new RuntimeException("Survey not found"));
-        answer.setQuestion(question);
-        question.addAnswer(answer);
-        answerRepository.save(answer);
-        return "redirect:/survey/getbyid/" + surveyId;
-    }
 
     @GetMapping("/respond")
     public String displaySurveyQuestions(@PathVariable Long surveyId, Model model) {
@@ -43,9 +27,7 @@ public class AnswerController {
         model.addAttribute("survey", survey);
 
         model.addAttribute("answer", new Answer());
-        for (Question question:survey.getQuestions()){
-            System.out.println(question.getQuestionType());
-        }
+
         return "answersurvey";
     }
 
