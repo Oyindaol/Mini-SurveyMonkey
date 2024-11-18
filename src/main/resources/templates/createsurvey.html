@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Mini-SurveyMonkey</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div class="container">
-    <h1>Welcome to Mini-SurveyMonkey</h1>
+    <h1>Create your survey</h1>
     <form th:action="@{/survey}" th:object="${survey}" method="post">
         <label for="name">Survey Name:</label>
         <input type="text" id="name" th:field="*{name}" placeholder="Enter survey name here..." required />
