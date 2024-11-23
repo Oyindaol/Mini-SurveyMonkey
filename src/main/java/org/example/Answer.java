@@ -16,6 +16,10 @@ public class Answer {
 
     public Answer(Question question, String answer){
         this.question = question;
+        //Validate answer
+        if (!question.validateAnswer(answer)) {
+            throw new IllegalArgumentException("Invalid answer for question type: " + question.getQuestionType());
+        }
         this.surveyAnswer = answer;
     }
 
@@ -31,8 +35,11 @@ public class Answer {
         return surveyAnswer;
     }
 
-    public void setSurveyAnswer(String answer) {
-        this.surveyAnswer = answer;
+    public void setSurveyAnswer(String surveyAnswer) {
+        if (question != null && !question.validateAnswer(surveyAnswer)) {
+            throw new IllegalArgumentException("Invalid answer for question type: " + question.getQuestionType());
+        }
+        this.surveyAnswer = surveyAnswer;
     }
 
     public Question getQuestion() {
