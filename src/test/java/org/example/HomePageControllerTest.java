@@ -51,7 +51,7 @@ public class HomePageControllerTest {
 
         String redirectUrl = homePageController.searchSurvey(surveyName);
 
-        assertEquals("redirect:/survey/getbyname/" + surveyName, redirectUrl);
+        assertEquals("redirect:/survey/" + survey.getId() + "/respond", redirectUrl);
         verify(surveyRepository).findByName(surveyName);
     }
 
