@@ -21,7 +21,7 @@ Multiple-choice Questions: Generate a pie chart summarizing the choices selected
 
 
 
-### ----------------------------------------COMPLETED MILESTONES---------------------------------------------
+### ---------------------------------COMPLETED MILESTONES---------------------------------------
 # Milestone 1
 For Milestone 1, an early prototype was expected to demonstrate basic functionality. This prototype needed to showcase at least one operational use case, which collected data from the backend, processed it, and displayed the result (a simple display was acceptable). 
 
@@ -33,7 +33,7 @@ Our team completed several key tasks to establish a functional prototype. We set
 
 ### Milestone 1 Database Schema:
 ![image](https://github.com/user-attachments/assets/4a0262aa-6c72-4b56-9fed-072ae2e1824c)
-### -----------------------------------------------------------------------------------------------------------------
+### -----------------------------------------------------------------------------------------------
 
 # Milestone 2
 For Milestone 2, the alpha release, the system is now somewhat usable, although not feature-complete. These are the features we have implemented:
