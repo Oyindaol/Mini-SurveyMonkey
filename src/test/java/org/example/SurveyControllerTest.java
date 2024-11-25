@@ -71,4 +71,33 @@ public class SurveyControllerTest {
 
         assertEquals("Survey not found", exception.getMessage());
     }
+
+    @Test
+    public void testGetSurveyByName() {
+        String surveyName = "Customer Satisfaction Survey";
+        Survey survey = new Survey();
+        survey.setId(1L);
+        survey.setName(surveyName);
+        when(surveyRepository.findByName(surveyName)).thenReturn(Optional.of(survey));
+
+        String viewName = surveyController.getSurveyByName(surveyName, model);
+
+        assertEquals("displaysurvey", viewName);
+        verify(surveyRepository).findByName(surveyName);
+        verify(model).addAttribute("survey", survey);
+    }
+
+    @Test
+    public void testGetSurveyByName_NotFound() {
+        String surveyName = "Non-Existent Survey";
+        when(surveyRepository.findByName(surveyName)).thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            surveyController.getSurveyByName(surveyName, model);
+        });
+
+        assertEquals("Survey not found", exception.getMessage());
+        verify(surveyRepository).findByName(surveyName);
+        verify(model, never()).addAttribute(eq("survey"), any());
+    }
 }

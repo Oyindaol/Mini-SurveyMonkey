@@ -1,7 +1,9 @@
 package org.example;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -91,5 +93,90 @@ public class QuestionTest {
         assertEquals(2, retrievedAnswers.size());
         assertTrue(retrievedAnswers.contains(answer1));
         assertTrue(retrievedAnswers.contains(answer2));
+    }
+
+    @Test
+    public void testGetAndSetMinValue(){
+        Question question = new Question();
+        Integer minValue = 1;
+        question.setMinValue(minValue);
+        assertEquals(minValue, question.getMinValue());
+    }
+
+    @Test
+    public void testGetAndSetMaxValue(){
+        Question question = new Question();
+        Integer maxValue = 10;
+        question.setMaxValue(maxValue);
+        assertEquals(maxValue, question.getMaxValue());
+    }
+
+    @Test
+    public void testSetOptions(){
+        Question question = new Question();
+        List<String> options = Arrays.asList("Option A", "Option B", "Option C");
+        question.setOptions(options);
+        assertEquals(options, question.getOptions());
+    }
+
+    @Test
+    public void testValidateAnswer_OpenEnded(){
+        Question question = new Question();
+        question.setQuestionType(Question.QuestionType.OPEN_ENDED);
+
+        assertTrue(question.validateAnswer("Any answer"));
+        assertTrue(question.validateAnswer(""));
+        assertTrue(question.validateAnswer(null));
+    }
+
+    @Test
+    public void testValidateAnswer_Numeric_Valid(){
+        Question question = new Question();
+        question.setQuestionType(Question.QuestionType.NUMERIC);
+        question.setMinValue(1);
+        question.setMaxValue(10);
+
+        assertTrue(question.validateAnswer("5"));
+        assertTrue(question.validateAnswer("1"));
+        assertTrue(question.validateAnswer("10"));
+    }
+
+    @Test
+    public void testValidateAnswer_Numeric_Invalid(){
+        Question question = new Question();
+        question.setQuestionType(Question.QuestionType.NUMERIC);
+        question.setMinValue(1);
+        question.setMaxValue(10);
+
+        assertFalse(question.validateAnswer("0"));
+        assertFalse(question.validateAnswer("11"));
+        assertFalse(question.validateAnswer("abc"));
+        assertFalse(question.validateAnswer(null));
+    }
+
+    @Test
+    public void testValidateAnswer_MultipleChoice_Valid(){
+        Question question = new Question();
+        question.setQuestionType(Question.QuestionType.MULTIPLE_CHOICE);
+        List<String> options = Arrays.asList("Option A", "Option B", "Option C");
+        question.setOptions(options);
+
+        assertTrue(question.validateAnswer("Option A"));
+        assertTrue(question.validateAnswer("Option B"));
+    }
+
+    @Test
+    public void testValidateAnswer_MultipleChoice_Invalid() {
+        Question question = new Question();
+        question.setQuestionType(Question.QuestionType.MULTIPLE_CHOICE);
+        List<String> options = Arrays.asList("Option A", "Option B", "Option C");
+        question.setOptions(options);
+
+        assertFalse(question.validateAnswer("Option D"));
+        assertFalse(question.validateAnswer(null));
+        assertFalse(question.validateAnswer(""));
+
+        question.setOptions(null);
+        assertFalse(question.validateAnswer("Option A"));
     }
 }
