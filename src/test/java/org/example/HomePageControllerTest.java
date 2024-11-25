@@ -39,21 +39,21 @@ public class HomePageControllerTest {
     }
 
 
-//    WIP: Did not pass Maven build upon pull request
-//    @Test
-//    public void testSearchSurvey_Success() {
-//        String surveyName = "Customer Satisfaction Survey";
-//        Survey survey = new Survey();
-//        survey.setId(1L);
-//        survey.setName(surveyName);
-//
-//        when(surveyRepository.findByName(surveyName)).thenReturn(Optional.of(survey));
-//
-//        String redirectUrl = homePageController.searchSurvey(surveyName);
-//
-//        assertEquals("redirect:/survey/getbyname/" + surveyName, redirectUrl);
-//        verify(surveyRepository).findByName(surveyName);
-//    }
+
+    @Test
+    public void testSearchSurvey_Success() {
+        String surveyName = "Customer Satisfaction Survey";
+        Survey survey = new Survey();
+        survey.setId(1L);
+        survey.setName(surveyName);
+
+        when(surveyRepository.findByName(surveyName)).thenReturn(Optional.of(survey));
+
+        String redirectUrl = homePageController.searchSurvey(surveyName);
+
+        assertEquals("redirect:/survey/getbyname/" + surveyName, redirectUrl);
+        verify(surveyRepository).findByName(surveyName);
+    }
 
     @Test
     public void testSearchSurvey_SurveyNotFound() {
