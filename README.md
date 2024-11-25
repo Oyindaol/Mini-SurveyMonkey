@@ -21,7 +21,7 @@ Multiple-choice Questions: Generate a pie chart summarizing the choices selected
 
 
 
-### ---------------------------------COMPLETED MILESTONES---------------------------------------
+### ------------------------------COMPLETED MILESTONES-----------------------------------
 # Milestone 1
 For Milestone 1, an early prototype was expected to demonstrate basic functionality. This prototype needed to showcase at least one operational use case, which collected data from the backend, processed it, and displayed the result (a simple display was acceptable). 
 
@@ -33,7 +33,7 @@ Our team completed several key tasks to establish a functional prototype. We set
 
 ### Milestone 1 Database Schema:
 ![image](https://github.com/user-attachments/assets/4a0262aa-6c72-4b56-9fed-072ae2e1824c)
-### -----------------------------------------------------------------------------------------------
+### --------------------------------------------------------------------------------------------
 
 # Milestone 2
 For Milestone 2, the alpha release, the system is now somewhat usable, although not feature-complete. These are the features we have implemented:
@@ -47,6 +47,7 @@ For Milestone 2, the alpha release, the system is now somewhat usable, although 
 4. The application also includes functional **Navigation and Views**. Users should be able to search for surveys by name, making it easier to find specific surveys. Additionally, the application displays views of surveys, including their questions and responses, allowing for interaction with the survey data.
 
 ### This is our current UML class diagram:
+![image](https://github.com/user-attachments/assets/6c6fa19a-f97f-4675-bced-a6ecffa7a30d)
 
 
 ### This is our current Database Schema:
@@ -54,6 +55,8 @@ For Milestone 2, the alpha release, the system is now somewhat usable, although 
 
 ### Testing
 To test with Jacoco, simply use Maven to test and a target folder will be generated. Then navigate to target/site/index.html and open the index.html in your preferred browser. There you will be able to view the coverage report.
+![image](https://github.com/user-attachments/assets/7205d085-3933-4cc2-8cbc-eb3f13b05c31)
+
 
 ## What's Next?
 For Milestone 3, we plan on:
