@@ -51,10 +51,11 @@ For Milestone 2, the alpha release, the system is now somewhat usable, although 
 
 
 ### This is our current Database Schema:
+![image](https://github.com/user-attachments/assets/47e143be-f9a0-412a-bb63-7906df5dd6db)
 
 
 ### Testing
-To test with Jacoco, simply use Maven to test and a target folder will be generated. Then navigate to target/site/index.html and open the index.html in your preferred browser. There you will be able to view the coverage report.
+To test with Jacoco, simply use Maven to generate a target folder. Then, navigate to target/site/index.html and open index.html in your preferred browser. You will be able to view the coverage report there.
 ![image](https://github.com/user-attachments/assets/7205d085-3933-4cc2-8cbc-eb3f13b05c31)
 
 
