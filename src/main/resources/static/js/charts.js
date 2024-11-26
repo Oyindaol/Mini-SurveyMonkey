@@ -1,53 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOMContentLoaded event fired"); // Debug log
+    console.log("DOMContentLoaded event fired");
 
     const container = document.getElementById('charts-container');
     if (!container) {
-        console.error("Charts container not found!"); // Debug log
+        console.error("Charts container not found!");
         return;
     }
-    console.log("Charts container found:", container); // Debug log
+    console.log("Charts container found:", container);
 
     const surveyId = container.dataset.surveyId;
     if (!surveyId) {
-        console.error("Survey ID not found in data attribute!"); // Debug log
+        console.error("Survey ID not found in data attribute!");
         return;
     }
-    console.log(`Fetching chart data for survey ID: ${surveyId}`); // Debug log
+    console.log(`Fetching chart data for survey ID: ${surveyId}`);
 
     fetch(`/survey/${surveyId}/charts/data`)
         .then(response => {
-            console.log(`Received response with status: ${response.status}`); // Debug log
+            console.log(`Received response with status: ${response.status}`);
             if (!response.ok) {
-                console.error(`HTTP error! Status: ${response.status}`); // Debug log
+                console.error(`HTTP error! Status: ${response.status}`);
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            console.log("Chart data received:", data); // Debug log
+            console.log("Chart data received:", data);
 
             const keys = Object.keys(data);
-            console.log(`Processing ${keys.length} chart data keys:`, keys); // Debug log
+            console.log(`Processing ${keys.length} chart data keys:`, keys);
 
             keys.forEach(key => {
-                console.log(`Processing chart data for key: ${key}`); // Debug log
+                console.log(`Processing chart data for key: ${key}`);
+
+                if (!key.startsWith('question_')) return;
+
+                const questionData = data[key];
+                const questionName = questionData.questionName;
+                const questionType = questionData.type;
 
                 const canvas = document.createElement('canvas');
-
-                // Apply CSS styles to each canvas
                 canvas.style.width = "400px";
                 canvas.style.height = "300px";
                 canvas.style.maxWidth = "100%";
-                canvas.style.margin = "20px auto";
+                canvas.style.marginTop = "5px";
+                canvas.style.marginBottom = "50px";
                 canvas.style.display = "block";
 
                 container.appendChild(canvas);
-                console.log(`Canvas created and appended for key: ${key}`); // Debug log
+                console.log(`Canvas created and appended for key: ${key}`);
 
-                if (key.startsWith('numeric_')) {
-                    const stats = data[key];
-                    console.log(`Numeric data stats for ${key}:`, stats); // Debug log
+                if (questionType === "numeric") {
+                    const stats = questionData.statistics;
+                    console.log(`Numeric data stats for ${key}:`, stats);
                     new Chart(canvas, {
                         type: 'bar',
                         data: {
@@ -64,18 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Custom Chart Title',
+                                    text: questionName,
                                     padding: {
                                         top: 50,
                                         bottom: 20
-                                    }
+                                    },
+                                    font: {
+                                        family: 'Arial',
+                                        size: 20
+                                    },
+                                    color: '#000000'
                                 }
                             }
                         }
                     });
-                } else if (key.startsWith('multiple_choice_')) {
-                    const percentages = data[key];
-                    console.log(`Multiple choice data for ${key}:`, percentages); // Debug log
+                } else if (questionType === "multiple_choice") {
+                    const percentages = questionData.percentages;
+                    console.log(`Multiple choice data for ${key}:`, percentages);
                     new Chart(canvas, {
                         type: 'pie',
                         data: {
@@ -89,21 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Custom Chart Title',
+                                    text: questionName,
                                     padding: {
                                         top: 50,
                                         bottom: 20
-                                    }
+                                    },
+                                    font: {
+                                        family: 'Arial',
+                                        size: 20,
+                                    },
+                                    color: '#000000'
                                 }
                             }
                         }
                     });
                 } else {
-                    console.warn(`Unhandled key type for ${key}`); // Debug log
+                    console.warn(`Unhandled key type for ${key}`);
                 }
             });
         })
         .catch(error => {
-            console.error('Error fetching chart data:', error); // Debug log
+            console.error('Error fetching chart data:', error);
         });
 });

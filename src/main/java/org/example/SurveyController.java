@@ -59,10 +59,13 @@ public class SurveyController {
             // Calculate and save statistics
             question.calculateAndSaveStatistics();
 
-            // Prepare data for the frontend
+            Map<String, Object> questionData = new HashMap<>();
+            questionData.put("questionName", question.getSurveyQuestion());
+
             switch (question.getQuestionType()) {
                 case NUMERIC:
-                    chartData.put("numeric_" + question.getId(), Map.of(
+                    questionData.put("type", "numeric");
+                    questionData.put("statistics", Map.of(
                             "mean", question.getMean(),
                             "median", question.getMedian(),
                             "stdDev", question.getStandardDeviation(),
@@ -72,15 +75,20 @@ public class SurveyController {
                     break;
 
                 case MULTIPLE_CHOICE:
-                    chartData.put("multiple_choice_" + question.getId(), question.getOptionsPercentage());
+                    questionData.put("type", "multiple_choice");
+                    questionData.put("percentages", question.getOptionsPercentage());
                     break;
 
                 case OPEN_ENDED:
-                    chartData.put("open_ended_" + question.getId(), question.getAnswers().stream()
+                    questionData.put("type", "open_ended");
+                    questionData.put("answers", question.getAnswers().stream()
                             .map(Answer::getSurveyAnswer)
                             .toList());
                     break;
             }
+
+            // Add the grouped question data to the main chartData map
+            chartData.put("question_" + question.getId(), questionData);
         }
 
         return chartData;
