@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 @RequestMapping("survey/{surveyId}")
@@ -51,7 +52,7 @@ public class AnswerController {
 
     @PostMapping("/respond")
     public String submitAnswers(@RequestParam Map<String, String> answers) {
-        System.out.println(1);
+        AtomicLong surveyid = new AtomicLong(1);
         answers.forEach((key, value) -> {
             if (key.startsWith("answers[")) {
                 // Extract question ID from the key
@@ -66,8 +67,9 @@ public class AnswerController {
                 answer.setSurveyAnswer(value);
                 question.addAnswer(answer);
                 answerRepository.save(answer);
+                surveyid.set(question.getSurvey().getId());
             }
         });
-        return "redirect:/survey/getbyid/" + 1;
+        return "redirect:/survey/getbyid/" + surveyid;
     }
 }

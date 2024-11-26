@@ -21,6 +21,6 @@ public class HomePageController {
     @PostMapping
     public String searchSurvey(@RequestParam("surveyName") String surveyName) {
         Survey survey = surveyRepository.findByName(surveyName).orElseThrow(() -> new RuntimeException("Survey not found"));
-        return "redirect:/survey/getbyname/" + surveyName;
+        return "redirect:/survey/" + survey.getId() + "/respond";
     }
 }

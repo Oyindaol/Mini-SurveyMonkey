@@ -3,10 +3,7 @@ package org.example;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,6 +83,19 @@ public class AnswerControllerTest {
         Survey survey = new Survey();
         survey.setId(surveyId);
         survey.setName("Test Survey");
+
+        Question question1 = new Question();
+        question1.setId(101L);
+        question1.setSurveyQuestion("Question 1");
+        question1.setQuestionType(Question.QuestionType.OPEN_ENDED);
+
+        Question question2 = new Question();
+        question2.setId(102L);
+        question2.setSurveyQuestion("Question 2");
+        question2.setQuestionType(Question.QuestionType.NUMERIC);
+
+        survey.setQuestions(Arrays.asList(question1, question2));
+
         when(surveyRepository.findById(surveyId)).thenReturn(Optional.of(survey));
 
         String viewName = answerController.displaySurveyQuestions(surveyId, model);
@@ -106,70 +116,61 @@ public class AnswerControllerTest {
         assertEquals("Survey not found", exception.getMessage());
     }
 
-    // WIP
-//    @Test
-//    public void testSubmitAnswers_Success(){
-//        Map<String, String> answers = Map.of(
-//                "answers[1].response", "Answer 1",
-//                "answers[2].response", "Answer 2"
-//        );
-//
-//        Long questionId1 = 1L;
-//        Long questionId2 = 2L;
-//
-//        Survey survey = new Survey();
-//        survey.setId(1L);
-//        survey.setName("Test Survey");
-//
-//        Question question1 = new Question();
-//        question1.setId(questionId1);
-//        question1.setSurvey(survey);
-//        question1.setAnswers(new ArrayList<>());
-//
-//        Question question2 = new Question();
-//        question2.setId(questionId2);
-//        question2.setSurvey(survey);
-//        question2.setAnswers(new ArrayList<>());
-//
-//        when(questionRepository.findById(questionId1)).thenReturn(Optional.of(question1));
-//        when(questionRepository.findById(questionId2)).thenReturn(Optional.of(question2));
-//
-//        Answer savedAnswer1 = new Answer();
-//        savedAnswer1.setId(1L);
-//        savedAnswer1.setSurveyAnswer("Answer 1");
-//        savedAnswer1.setQuestion(question1);
-//
-//        Answer savedAnswer2 = new Answer();
-//        savedAnswer2.setId(2L);
-//        savedAnswer2.setSurveyAnswer("Answer 2");
-//        savedAnswer2.setQuestion(question2);
-//
-//        when(answerRepository.save(any(Answer.class))).thenReturn(savedAnswer1).thenReturn(savedAnswer2);
-//
-//        String redirectUrl = answerController.submitAnswers(answers);
-//
-//        assertEquals("redirect:/survey/getbyid/1", redirectUrl);
-//        verify(questionRepository, times(1)).findById(questionId1);
-//        verify(questionRepository, times(1)).findById(questionId2);
-//        verify(answerRepository, times(2)).save(any(Answer.class));
-//
-//        ArgumentCaptor<Answer> answerCaptor = ArgumentCaptor.forClass(Answer.class);
-//        verify(answerRepository, times(2)).save(answerCaptor.capture());
-//
-//        List<Answer> capturedAnswers = answerCaptor.getAllValues();
-//        assertEquals(2, capturedAnswers.size());
-//
-//        Answer capturedAnswer1 = capturedAnswers.get(0);
-//        assertEquals("Answer 1", capturedAnswer1.getSurveyAnswer());
-//        assertEquals(question1, capturedAnswer1.getQuestion());
-//
-//        Answer capturedAnswer2 = capturedAnswers.get(1);
-//        assertEquals("Answer 2", capturedAnswer2.getSurveyAnswer());
-//        assertEquals(question2, capturedAnswer2.getQuestion());
-//
-//        assertTrue(question1.getAnswers().contains(capturedAnswer1));
-//        assertTrue(question2.getAnswers().contains(capturedAnswer2));
-//    }
+    @Test
+    public void testSubmitAnswers_Success(){
+        Map<String, String> answers = new HashMap<>();
+        answers.put("answers[1].response", "Answer 1");
+        answers.put("answers[2].response", "Answer 2");
+
+        Long questionId1 = 1L;
+        Long questionId2 = 2L;
+
+        Question question1 = new Question();
+        question1.setId(questionId1);
+        question1.setSurveyQuestion("Question 1");
+        question1.setQuestionType(Question.QuestionType.OPEN_ENDED);
+        question1.setAnswers(new ArrayList<>());
+
+        Question question2 = new Question();
+        question2.setId(questionId2);
+        question2.setSurveyQuestion("Question 2");
+        question2.setQuestionType(Question.QuestionType.OPEN_ENDED);
+        question2.setAnswers(new ArrayList<>());
+
+        when(questionRepository.findById(questionId1)).thenReturn(Optional.of(question1));
+        when(questionRepository.findById(questionId2)).thenReturn(Optional.of(question2));
+
+        when(answerRepository.save(any(Answer.class))).thenAnswer(invocation -> {
+            Answer savedAnswer = invocation.getArgument(0);
+            savedAnswer.setId(new Random().nextLong());
+            return savedAnswer;
+        });
+
+        String redirectUrl = answerController.submitAnswers(answers);
+
+        assertEquals("redirect:/survey/getbyid/1", redirectUrl);
+
+        ArgumentCaptor<Answer> answerCaptor = ArgumentCaptor.forClass(Answer.class);
+        verify(answerRepository, times(2)).save(answerCaptor.capture());
+
+        List<Answer> capturedAnswers = answerCaptor.getAllValues();
+        assertEquals(2, capturedAnswers.size());
+
+        for (Answer capturedAnswer : capturedAnswers) {
+            if (capturedAnswer.getQuestion().equals(question1)) {
+                assertEquals("Answer 1", capturedAnswer.getSurveyAnswer());
+                assertTrue(question1.getAnswers().contains(capturedAnswer));
+            } else if (capturedAnswer.getQuestion().equals(question2)) {
+                assertEquals("Answer 2", capturedAnswer.getSurveyAnswer());
+                assertTrue(question2.getAnswers().contains(capturedAnswer));
+            } else {
+                fail("Captured answer has unexpected question: " + capturedAnswer.getQuestion());
+            }
+        }
+
+        assertEquals(1, question1.getAnswers().size());
+        assertEquals(1, question2.getAnswers().size());
+    }
 
     @Test
     public void testSubmitAnswers_QuestionNotFound(){
