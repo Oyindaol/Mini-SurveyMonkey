@@ -221,11 +221,9 @@ public class Question {
                 break;
 
             default:
-                // Open-ended questions do not require statistics
                 break;
         }
     }
-
 
     // Validation for answers
     public boolean validateAnswer(String answer) {

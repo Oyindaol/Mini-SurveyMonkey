@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class AnswerStatistics {
 
-    // Method to calculate statistics for numeric answers
+    // Calculate statistics for numeric answers
     public static Map<String, Object> calculateNumericStats(List<Answer> answers) {
         Map<String, Object> numericAnswerStatistics = new HashMap<>();
         List<Integer> numericAnswers = answers.stream()
@@ -41,7 +41,7 @@ public class AnswerStatistics {
         return numericAnswerStatistics;
     }
 
-    // Method to calculate counts for multiple-choice answers
+    // Calculate counts for multiple-choice answers
     public static Map<String, Integer> calculateMultipleChoiceCounts(List<Answer> answers, List<String> options) {
         Map<String, Integer> choiceCounts = new HashMap<>();
 
@@ -59,7 +59,7 @@ public class AnswerStatistics {
         return choiceCounts;
     }
 
-    // Method to calculate percentages for multiple-choice answers
+    // Calculate percentages for multiple-choice answers
     public static Map<String, Double> calculateMultipleChoicePercentages(List<Answer> answers, List<String> options) {
         Map<String, Integer> choiceCounts = calculateMultipleChoiceCounts(answers, options);
         int totalAnswers = answers.size();
