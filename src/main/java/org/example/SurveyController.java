@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.ff4j.FF4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,10 @@ public class SurveyController {
 
     @Autowired
     private SurveyRepository surveyRepository;
+
+    @Autowired
+    private FF4j ff4j;
+
     @GetMapping
     public String displaySurveyForm(Model model) {
         model.addAttribute("survey", new Survey());
@@ -41,6 +46,9 @@ public class SurveyController {
 
     @GetMapping("/{surveyId}/charts")
     public String viewSurveyCharts(@PathVariable Long surveyId, Model model) {
+        if(!ff4j.check("graphGenerator")) {
+            throw new RuntimeException("Graph generator feature is disabled");
+        }
         Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new RuntimeException("Survey not found"));
         model.addAttribute("survey", survey);
         model.addAttribute("surveyId", surveyId);
