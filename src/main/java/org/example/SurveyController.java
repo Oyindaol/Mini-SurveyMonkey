@@ -41,7 +41,6 @@ public class SurveyController {
 
     @GetMapping("/{surveyId}/charts")
     public String viewSurveyCharts(@PathVariable Long surveyId, Model model) {
-        System.out.println("Serving viewcharts.html for surveyId: " + surveyId);
         Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new RuntimeException("Survey not found"));
         model.addAttribute("survey", survey);
         model.addAttribute("surveyId", surveyId);
@@ -51,12 +50,10 @@ public class SurveyController {
     @GetMapping("/{id}/charts/data")
     @ResponseBody
     public Map<String, Object> getSurveyChartData(@PathVariable Long id) {
-        System.out.println("Serving viewcharts.html for survey8Id: " + id);
         Survey survey = surveyRepository.findById(id).orElseThrow(() -> new RuntimeException("Survey not found"));
         Map<String, Object> chartData = new HashMap<>();
 
         for (Question question : survey.getQuestions()) {
-            // Calculate and save statistics
             question.calculateAndSaveStatistics();
 
             Map<String, Object> questionData = new HashMap<>();
@@ -80,14 +77,9 @@ public class SurveyController {
                     break;
 
                 case OPEN_ENDED:
-                    questionData.put("type", "open_ended");
-                    questionData.put("answers", question.getAnswers().stream()
-                            .map(Answer::getSurveyAnswer)
-                            .toList());
                     break;
             }
 
-            // Add the grouped question data to the main chartData map
             chartData.put("question_" + question.getId(), questionData);
         }
 
