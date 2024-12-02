@@ -3,6 +3,8 @@ package org.example;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -72,5 +74,36 @@ public class QuestionControllerTest {
         });
 
         assertEquals("Survey not found", exception.getMessage());
+    }
+
+    @Test
+    public void testCreateQuestion_MultipleChoice(){
+        Long surveyId = 1L;
+        Survey survey = new Survey();
+        survey.setId(surveyId);
+        survey.setName("Test Survey");
+
+        when(surveyRepository.findById(surveyId)).thenReturn(Optional.of(survey));
+
+        Question question = new Question();
+        question.setId(2L);
+
+        String questionType = "MULTIPLE_CHOICE";
+        String answerChoice = "Option A,Option B,Option C";
+
+        String redirectUrl = questionController.createQuestion(surveyId, question, questionType, answerChoice);
+
+        assertEquals("redirect:/survey/getbyid/" + surveyId, redirectUrl);
+
+        assertEquals(Question.QuestionType.MULTIPLE_CHOICE, question.getQuestionType());
+
+        List<String> expectedOptions = Arrays.asList("Option A", "Option B", "Option C");
+        assertEquals(expectedOptions, question.getOptions());
+
+        assertEquals(survey, question.getSurvey());
+        assertTrue(survey.getQuestions().contains(question));
+
+        verify(questionRepository).save(question);
+        verify(surveyRepository).save(survey);
     }
 }

@@ -4,46 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Question</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <main class="container">
     <h1>Create a Question</h1>
     <form th:action="@{|/survey/${surveyId}/question/create|}" th:object="${question}" method="post">
         <label for="question">Question Text:</label>
-        <input type="text" id="question" th:field="*{surveyQuestion}" placeholder="Enter your question here" required />
+        <input type="text" id="question" th:field="*{surveyQuestion}" placeholder="Enter your question here..." required />
 
-        <label for="choices">Question Type</label>
+        <label for="choices">Question Type:</label>
         <select id="choices" name="choices">
             <option value="OPEN_ENDED">String</option>
             <option value="NUMERIC">Integer</option>
             <option value="MULTIPLE_CHOICE">Multiple Choice</option>
         </select>
-        <br><br>
+
         <div id="answerChoice">
             <label for="multipleChoiceInput">Please specify your answer choice:</label>
-            <input type="text" id="multipleChoiceInput" name="multipleChoiceInput" placeholder="Enter your choices, separated by comma">
+            <input type="text" id="multipleChoiceInput" name="multipleChoiceInput" placeholder="Enter your choices, separated by commas">
         </div>
-        <br>
 
         <button type="submit">Create Question</button>
     </form>
-    <script>
-
-        const dropdown = document.getElementById('choices');
-        const customInput = document.getElementById('customInput');
-        customInput.style.display = 'none';
-
-        dropdown.addEventListener('change', function () {
-
-            if (this.value === 'multiplechoice') {
-                customInput.style.display = 'block';
-            } else {
-                customInput.style.display = 'none';
-            }
-        });
-    </script>
 </main>
+<footer>
+    Group 17 - Mini-SurveyMonkey
+</footer>
 </body>
 </html>
-
