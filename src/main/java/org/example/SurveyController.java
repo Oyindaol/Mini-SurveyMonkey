@@ -46,8 +46,8 @@ public class SurveyController {
 
     @GetMapping("/{surveyId}/charts")
     public String viewSurveyCharts(@PathVariable Long surveyId, Model model) {
-        if(!ff4j.check("graphGenerator")) {
-            throw new RuntimeException("Graph generator feature is disabled");
+        if(!ff4j.check("CHART_GENERATOR")){
+            throw new RuntimeException("Chart generator feature is disabled");
         }
         Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new RuntimeException("Survey not found"));
         model.addAttribute("survey", survey);
