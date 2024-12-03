@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Survey Charts</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+        <script src="/js/charts.js" defer></script>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <h1 th:text="${survey.name} + ' Chart'">Survey Title</h1>
+        <div id="charts-container" th:attr="data-survey-id=${surveyId}"></div>
+    </body>
+</html>
