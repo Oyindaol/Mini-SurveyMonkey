@@ -3,7 +3,9 @@ package org.example;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Question {
@@ -36,6 +38,28 @@ public class Question {
         NUMERIC,
         MULTIPLE_CHOICE
     }
+
+    //Numeric Questions Statistics
+    private Integer mean;
+    private Integer median;
+    private Integer standardDeviation;
+    private Integer largestAnswer;
+    private Integer smallestAnswer;
+
+    //Multiple Choice Questions Statistics
+    @ElementCollection
+    @CollectionTable(name = "question_options_count", joinColumns = @JoinColumn(name = "question_id"))
+    @MapKeyColumn(name = "option")
+    @Column(name = "count")
+    private Map<String, Integer> optionsCount;
+
+    @ElementCollection
+    @CollectionTable(name = "question_options_percentage", joinColumns = @JoinColumn(name = "question_id"))
+    @MapKeyColumn(name = "option")
+    @Column(name = "percentage")
+    private Map<String, Double> optionsPercentage;
+
+
 
     public Question(){}
 
@@ -112,6 +136,93 @@ public class Question {
 
     public void setOptions(List<String> options) {
         this.options = options;
+    }
+
+    public int getMean() {
+        return mean;
+    }
+
+    public void setMean(int mean) {
+        this.mean = mean;
+    }
+
+    public int getMedian() {
+        return median;
+    }
+
+    public void setMedian(int median) {
+        this.median = median;
+    }
+
+    public int getStandardDeviation() {
+        return standardDeviation;
+    }
+
+    public void setStandardDeviation(int standardDeviation) {
+        this.standardDeviation = standardDeviation;
+    }
+
+    public int getLargestAnswer() {
+        return largestAnswer;
+    }
+
+    public void setLargestAnswer(int largestAnswer) {
+        this.largestAnswer = largestAnswer;
+    }
+
+    public int getSmallestAnswer() {
+        return smallestAnswer;
+    }
+
+    public void setSmallestAnswer(int smallestAnswer) {
+        this.smallestAnswer = smallestAnswer;
+    }
+
+    public Map<String, Integer> getOptionsCount() {
+        return optionsCount;
+    }
+
+    public void setOptionsCount(Map<String, Integer> optionsCount) {
+        this.optionsCount = optionsCount;
+    }
+
+    public Map<String, Double> getOptionsPercentage() {
+        return optionsPercentage;
+    }
+
+    public void setOptionsPercentage(Map<String, Double> optionsPercentage) {
+        this.optionsPercentage = optionsPercentage;
+    }
+
+    // Calculate the statistics for a question
+    public void calculateAndSaveStatistics() {
+        switch (this.questionType) {
+            case NUMERIC:
+                List<Integer> numericAnswers = this.answers.stream()
+                        .map(answer -> Integer.parseInt(answer.getSurveyAnswer()))
+                        .toList();
+
+                if (!numericAnswers.isEmpty()) {
+                    Map<String, Object> stats = AnswerStatistics.calculateNumericStats(this.answers);
+                    this.mean = (int) Math.round((double) stats.get("Mean"));
+                    this.median = (int) Math.round((double) stats.get("Median"));
+                    this.standardDeviation = (int) Math.round((double) stats.get("Standard Deviation"));
+                    this.largestAnswer = (int) stats.get("Max");
+                    this.smallestAnswer = (int) stats.get("Min");
+                }
+                break;
+
+            case MULTIPLE_CHOICE:
+                Map<String, Integer> counts = AnswerStatistics.calculateMultipleChoiceCounts(this.answers, this.options);
+                Map<String, Double> percentages = AnswerStatistics.calculateMultipleChoicePercentages(this.answers, this.options);
+
+                this.optionsCount = counts;
+                this.optionsPercentage = percentages;
+                break;
+
+            default:
+                break;
+        }
     }
 
     // Validation for answers
