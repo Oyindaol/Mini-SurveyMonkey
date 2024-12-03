@@ -530,3 +530,57 @@ select next value for survey_seq [90036-224]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1575)
+2024-12-02 19:25:21.417366-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:25:21.448278-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:27:10.560964-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:27:10.574964-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:27:18.583467-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:27:18.588464-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:27:21.222030-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:27:21.229014-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:29:12.338372-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:29:12.351340-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:31:02.424130-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:31:02.437258-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:31:58.426915-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:31:58.439875-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:45:33.633947-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:45:33.649948-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]
+2024-12-02 19:46:23.226493-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, hashed_password varchar(255), temp_password varchar(255), username varchar(255), primary key (id)) [42001-224]
+2024-12-02 19:46:23.239492-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists user_surveys add constraint FKcd40389xjmlcw5fmgiasxus02 foreign key (user_id) references user [42001-224]

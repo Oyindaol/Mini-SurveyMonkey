@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <h1>Create your survey</h1>
+  <form th:action="@{|/survey/create/${accountId}|}" th:object="${survey}" method="post">
+    <label for="name">Survey Name:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Enter survey name here..." required />
+    <button type="submit">Create Survey</button>
+  </form>
+</div>
+</body>
+<footer>
+  Group 17 - Mini-SurveyMonkey
+</footer>
+</html>
