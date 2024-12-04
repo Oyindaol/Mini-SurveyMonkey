@@ -10,7 +10,7 @@
   <form th:action="@{/account/login}" th:object="${user}" method="post">
     <p th:if="${message != ''}" style="color: red; font-weight: bold;" th:text="${message}"></p>
 
-    <label for="username">Userame:</label>
+    <label for="username">Username:</label>
     <input type="text" id="username" th:field="*{username}" placeholder="Enter username here..." required />
 
     <label for="password">Password:</label>
