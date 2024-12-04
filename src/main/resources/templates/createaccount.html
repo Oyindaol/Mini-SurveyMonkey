@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <h1>Register an Account</h1>
+  <form th:action="@{/account/register}" th:object="${user}" method="post">
+    <label for="username">Userame:</label>
+    <input type="text" id="username" th:field="*{username}" placeholder="Enter username here..." required />
+
+    <label for="password">Password:</label>
+    <input type="text" id="password" th:field="*{hashedPassword}" placeholder="Enter password here..." required />
+    <button type="submit">Register</button>
+  </form>
+</div>
+</body>
+<footer>
+  Group 17 - Mini-SurveyMonkey
+</footer>
+</html>

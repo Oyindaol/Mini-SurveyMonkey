@@ -46,12 +46,6 @@ public class QuestionController {
         questionRepository.save(question);
         surveyRepository.save(survey);
 
-        System.out.println(questionType);
-        System.out.println(question.getQuestionType());
-        System.out.println(answerChoice);
-        System.out.println(question.getOptions());
-        System.out.println();
-
         Long questionId = question.getId();
 
         return "redirect:/survey/getbyid/" + surveyId;

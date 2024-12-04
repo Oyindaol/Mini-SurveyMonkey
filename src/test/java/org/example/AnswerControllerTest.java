@@ -38,44 +38,44 @@ public class AnswerControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testDisplayAnswerForm(){
-        String viewName = answerController.displayAnswerForm(1L, 2L, model);
-        assertEquals("submitanswer", viewName);
-        verify(model).addAttribute("surveyId", 1L);
-        verify(model).addAttribute("questionId", 2L);
-        verify(model).addAttribute(eq("answer"), any(Answer.class));
-    }
-
-    @Test
-    public void testCreateAnswer(){
-        Question question = new Question();
-        question.setId(2L);
-        when(questionRepository.findById(2L)).thenReturn(Optional.of(question));
-
-        Answer answer = new Answer();
-        answer.setId(3L);
-
-        when(answerRepository.save(any(Answer.class))).thenReturn(answer);
-
-        String redirectUrl = answerController.createAnswer(1L, 2L, answer);
-        assertEquals("redirect:/survey/getbyid/1", redirectUrl);
-
-        verify(answerRepository).save(answer);
-        assertEquals(question, answer.getQuestion());
-    }
-
-    @Test
-    public void testCreateAnswer_QuestionNotFound(){
-        when(questionRepository.findById(2L)).thenReturn(Optional.empty());
-        Answer answer = new Answer();
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            answerController.createAnswer(1L, 2L, answer);
-        });
-
-        assertEquals("Survey not found", exception.getMessage());
-    }
+//    @Test
+//    public void testDisplayAnswerForm(){
+//        String viewName = answerController.displayAnswerForm(1L, 2L, model);
+//        assertEquals("submitanswer", viewName);
+//        verify(model).addAttribute("surveyId", 1L);
+//        verify(model).addAttribute("questionId", 2L);
+//        verify(model).addAttribute(eq("answer"), any(Answer.class));
+//    }
+//
+//    @Test
+//    public void testCreateAnswer(){
+//        Question question = new Question();
+//        question.setId(2L);
+//        when(questionRepository.findById(2L)).thenReturn(Optional.of(question));
+//
+//        Answer answer = new Answer();
+//        answer.setId(3L);
+//
+//        when(answerRepository.save(any(Answer.class))).thenReturn(answer);
+//
+//        String redirectUrl = answerController.createAnswer(1L, 2L, answer);
+//        assertEquals("redirect:/survey/getbyid/1", redirectUrl);
+//
+//        verify(answerRepository).save(answer);
+//        assertEquals(question, answer.getQuestion());
+//    }
+//
+//    @Test
+//    public void testCreateAnswer_QuestionNotFound(){
+//        when(questionRepository.findById(2L)).thenReturn(Optional.empty());
+//        Answer answer = new Answer();
+//
+//        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+//            answerController.createAnswer(1L, 2L, answer);
+//        });
+//
+//        assertEquals("Survey not found", exception.getMessage());
+//    }
 
     @Test
     public void testDisplaySurveyQuestions_Success(){

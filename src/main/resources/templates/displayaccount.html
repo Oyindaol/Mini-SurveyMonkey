@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Account</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1 th:text="'User: ' + ${user.username}">Survey Title</h1>
+<div th:each="survey : ${user.surveys}">
+  <a th:href="@{|/survey/getbyid/${survey.id}|}" th:text="${survey.name}">Survey Name</a>
+
+</div>
+<!--<a th:href="@{|/survey/${survey.id}/question/create|}" class="btn">Create Survey</a>-->
+<a th:href="@{|/survey/create/${user.id}|}" class="btn">Add a Survey</a>
+</body>
+<footer>
+  Group 17 - Mini-SurveyMonkey
+</footer>
+</html>
