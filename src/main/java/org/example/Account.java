@@ -24,6 +24,7 @@ public class Account {
     }
     public Account(String username, String password){
         this.username = username;
+        this.tempPassword = password;
         this.hashedPassword = hashPassword(password);
     }
 
@@ -76,4 +77,33 @@ public class Account {
     public void setSurveys(List<Survey> surveys) {
         this.surveys = surveys;
     }
+
+    public String getTempPassword() {
+        return tempPassword;
+    }
+
+    public void setTempPassword(String password) {
+        this.tempPassword = password;
+    }
+
+    public static boolean isValidPassword(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            return false;
+        }
+        if (!password.matches(".*[a-z].*")) {
+            return false;
+        }
+        if (!password.matches(".*\\d.*")) {
+            return false;
+        }
+        if (!password.matches(".*[!@#$%^&*].*")) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

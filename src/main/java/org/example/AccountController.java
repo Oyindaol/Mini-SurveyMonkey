@@ -21,7 +21,25 @@ public class AccountController {
         return "createaccount";
     }
     @PostMapping("/register")
-    public String createUser(@ModelAttribute Account account) {
+    public String createUser(@ModelAttribute Account account, Model model) {
+        //Check if username already exists
+        if (accountRepository.findByUsername(account.getUsername()).isPresent()) {
+            //If username exists, add an error message and return to the registration form
+            model.addAttribute("errorMessage", "Username already exists. Please choose a different name.");
+            return "createaccount";
+        }
+
+        //get the un-hashed password the user just input
+        String rawpassword = account.getTempPassword();
+
+        //Validate the raw password against the policy
+        if(!Account.isValidPassword(rawpassword)){
+            model.addAttribute("errorMessage", "Invalid password. Please try again.");
+            return "createaccount";
+        }
+
+        //If the username doesn't exist, hash the password and save the new account
+        account.setHashedPassword(Account.hashPassword(account.getHashedPassword()));
         accountRepository.save(account);
         return "redirect:/account/" + account.getId() + "/display";
     }
