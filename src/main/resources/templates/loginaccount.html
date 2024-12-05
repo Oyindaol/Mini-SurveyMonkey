@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/styles.css">
+  <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
+  <title>Login to Account</title>
 </head>
 <body>
 <div class="container">
-  <h1>Login an Account</h1>
+  <h1>Login to Account</h1>
   <form th:action="@{/account/login}" th:object="${user}" method="post">
     <p th:if="${message != ''}" style="color: red; font-weight: bold;" th:text="${message}"></p>
 
