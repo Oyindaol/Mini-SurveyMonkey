@@ -3,7 +3,7 @@
 # Mini-SurveyMonkey (Group 17)
 Mini-SurveyMonkey is a web application that allows surveyors to create and manage surveys with different types of questions and compile meaningful results from user responses. This project simulates a simplified version of popular survey platforms, designed to be flexible and user-friendly.
 
-Features
+Features:
 1. Create Surveys: Surveyors can create new surveys and add questions of various types.
 Question Types:
 Open-ended (Text): Allows users to input free-form text answers.
@@ -33,7 +33,7 @@ Our team completed several key tasks to establish a functional prototype. We set
 
 ### Milestone 1 Database Schema:
 ![image](https://github.com/user-attachments/assets/4a0262aa-6c72-4b56-9fed-072ae2e1824c)
-### --------------------------------------------------------------------------------------------
+
 
 # Milestone 2
 For Milestone 2, the alpha release, the system is now somewhat usable, although not feature-complete. These are the features we have implemented:
@@ -44,32 +44,38 @@ For Milestone 2, the alpha release, the system is now somewhat usable, although 
 
 3. The answer validation process allows users to respond to surveys using the AnswerController. This functionality displays all questions in a survey, captures users responses, and associates the answers with the appropriate survey and questions. All submitted answers are stored persistently in the database for future retrieval and analysis.
 
-4. The application also includes functional **Navigation and Views**. Users should be able to search for surveys by name, making it easier to find specific surveys. Additionally, the application displays views of surveys, including their questions and responses, allowing for interaction with the survey data.
+4. The application also includes functional Navigation and Views. Users should be able to search for surveys by name, making it easier to find specific surveys. Additionally, the application displays views of surveys, including their questions and responses, allowing for interaction with the survey data.
 
-### This is our current UML class diagram:
+### Milestone 2 UML class diagram:
 ![image](https://github.com/user-attachments/assets/6c6fa19a-f97f-4675-bced-a6ecffa7a30d)
 
 
-### This is our current Database Schema:
+### Milestone 2 Database Schema:
 ![image](https://github.com/user-attachments/assets/47e143be-f9a0-412a-bb63-7906df5dd6db)
+
+### --------------------------------------------------------------------------------------------
+
+# Milestone 3
+For Milestone 3, the final demo, the system is now usable and useful based on the final scope of the product we set. These features include:
+
+1. Users can create or log in to an account.
+2. Create a survey with different types of questions.
+3. Find an existing survey and respond to it.
+4. The system validates inputted questions and responses for consistency.
+5. See statistics of the survey responses.
+6. Use the FF4J, feature toggle feature for the statistics graphs.
+7. Proper error handling and no dangling links.
+8. Attractive UI for efficient usability.
+
+### This is our current UML class diagram:
+
+
+### This is our current Database Schema:
+![image](https://github.com/user-attachments/assets/aac2b008-a65c-4b8e-bcf8-a1e1771ee403)
 
 
 ### Testing
 To test with Jacoco, simply use Maven to generate a target folder. Then, navigate to target/site/index.html and open index.html in your preferred browser. You will be able to view the coverage report there.
 ![image](https://github.com/user-attachments/assets/7205d085-3933-4cc2-8cbc-eb3f13b05c31)
-
-
-## What's Next?
-For Milestone 3, we plan on:
-
-1. Improving the validation for the answer submission feature. Currently, the validateAnswer method in Question ensures responses match question types but the current flow doesn't invoke validation directly in the controllers. This might result in invalid answers being saved.
-2. Implementing the Feature Toggle Pattern in Spring, FF4J, as required for our presentation topic.
-3. Work on error handling. Currently, the controllers rely on RuntimeException for error handling, which could cause abrupt failures.
-4. Update the front end to handle the features added to the backend.
-
-
-
-
-
 
 
