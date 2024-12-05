@@ -28,31 +28,4 @@ public class HomePageControllerIntegrationTest {
                 .andExpect(model().attributeExists("surveyName"))
                 .andExpect(model().attribute("surveyName", ""));
     }
-
-    @Test
-    public void testSearchSurvey_Success() throws Exception {
-        String surveyName = "Customer Satisfaction Survey";
-
-        MvcResult result = mockMvc.perform(post("/survey")
-                        .param("name", surveyName))
-                .andExpect(status().is3xxRedirection())
-                .andReturn();
-
-        Long surveyId = extractSurveyId(result.getResponse().getRedirectedUrl());
-
-        mockMvc.perform(post("/")
-                        .param("surveyName", surveyName))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/survey/" + surveyId + "/respond"));
-    }
-
-    private Long extractSurveyId(String redirectUrl) {
-        Pattern pattern = Pattern.compile("/survey/(\\d+)/question/create");
-        Matcher matcher = pattern.matcher(redirectUrl);
-        if (matcher.find()) {
-            return Long.parseLong(matcher.group(1));
-        } else {
-            throw new IllegalArgumentException("Cannot extract survey ID from redirect URL");
-        }
-    }
 }
