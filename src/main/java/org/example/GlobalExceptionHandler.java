@@ -8,7 +8,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Handle 404 errors (NoHandlerFoundException)
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotFound(NoHandlerFoundException ex, Model model) {
@@ -19,7 +18,6 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
-    // Handle custom exceptions (e.g., ResourceNotFoundException)
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleResourceNotFound(ResourceNotFoundException ex, Model model) {
@@ -29,7 +27,6 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
-    // Handle all other exceptions
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleAllExceptions(Exception ex, Model model) {
