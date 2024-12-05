@@ -1,5 +1,6 @@
 package org.example;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,8 @@ public class HomePageController {
 
     @PostMapping
     public String searchSurvey(@RequestParam("surveyName") String surveyName) {
-        Survey survey = surveyRepository.findByName(surveyName).orElseThrow(() -> new RuntimeException("Survey not found"));
+        Survey survey = surveyRepository.findByName(surveyName)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with name: " + surveyName));
         return "redirect:/survey/" + survey.getId() + "/respond";
     }
 }
