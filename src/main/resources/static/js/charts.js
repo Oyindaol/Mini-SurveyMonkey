@@ -6,14 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Charts container not found!");
         return;
     }
-    console.log("Charts container found:", container);
-
     const surveyId = container.dataset.surveyId;
     if (!surveyId) {
-        console.error("Survey ID not found in data attribute!");
         return;
     }
-    console.log(`Fetching chart data for survey ID: ${surveyId}`);
 
     fetch(`/survey/${surveyId}/charts/data`)
         .then(response => {
@@ -25,13 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            console.log("Chart data received:", data);
 
             const keys = Object.keys(data);
-            console.log(`Processing ${keys.length} chart data keys:`, keys);
 
             keys.forEach(key => {
-                console.log(`Processing chart data for key: ${key}`);
 
                 if (!key.startsWith('question_')) return;
 
@@ -48,11 +41,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 canvas.style.display = "block";
 
                 container.appendChild(canvas);
-                console.log(`Canvas created and appended for key: ${key}`);
 
-                if (questionType === "numeric") {
+                if (questionType === "open_ended") {
+                    const responses = questionData.responses;
+
+
+                    const responsesContainer = document.createElement('div');
+                    responsesContainer.style.marginTop = "5px";
+                    responsesContainer.style.marginBottom = "50px";
+                    responsesContainer.style.display = "flex";
+                    responsesContainer.style.flexDirection = "column";
+                    responsesContainer.style.alignItems = "center";
+                    responsesContainer.style.justifyContent = "center";
+
+                    // Create title for the question
+                    const questionTitle = document.createElement('h3');
+                    questionTitle.textContent = questionName;
+                    questionTitle.style.textAlign = "center";
+                    responsesContainer.appendChild(questionTitle);
+
+                    // Create list for responses
+                    const responseList = document.createElement('ul');
+                    responseList.style.listStyleType = "none";
+                    responseList.style.padding = "0";
+                    responseList.style.width = "100%";
+
+                    responses.forEach(response => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = response;
+                        listItem.style.marginBottom = "10px";
+                        responseList.appendChild(listItem);
+                    });
+
+                    responsesContainer.appendChild(responseList);
+                    container.appendChild(responsesContainer);
+                } else if (questionType === "numeric") {
                     const stats = questionData.statistics;
-                    console.log(`Numeric data stats for ${key}:`, stats);
                     new Chart(canvas, {
                         type: 'bar',
                         data: {
@@ -85,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 } else if (questionType === "multiple_choice") {
                     const percentages = questionData.percentages;
-                    console.log(`Multiple choice data for ${key}:`, percentages);
                     new Chart(canvas, {
                         type: 'pie',
                         data: {

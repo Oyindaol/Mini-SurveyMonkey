@@ -189,6 +189,7 @@ public class SurveyControllerTest {
         Long surveyId = 3L;
         Survey survey = new Survey("Chart Survey");
         survey.setId(surveyId);
+        survey.setClosed(true);
 
         when(ff4j.check("CHART_GENERATOR")).thenReturn(true);
         when(surveyRepository.findById(surveyId)).thenReturn(Optional.of(survey));
@@ -270,7 +271,7 @@ public class SurveyControllerTest {
 
         Map<String, Object> oeData = (Map<String, Object>) chartData.get("question_12");
         assertEquals("Any comments?", oeData.get("questionName"));
-        assertFalse(oeData.containsKey("type"));
+        assertTrue(oeData.containsKey("type"));
         assertFalse(oeData.containsKey("statistics"));
         assertFalse(oeData.containsKey("percentages"));
     }

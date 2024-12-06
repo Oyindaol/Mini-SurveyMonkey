@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/styles.css">
-  <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
   <title>Login to Account</title>
 </head>
 <body>
+<a href="/">
+  <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
+</a>
 <div class="container">
   <h1>Login to Account</h1>
   <form th:action="@{/account/login}" th:object="${user}" method="post">

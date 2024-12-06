@@ -15,6 +15,9 @@ public class Survey {
     private List<Question> questions = new ArrayList<>();
     private String name;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE") // Default value
+    private boolean isClosed = false;
+
     public Survey(){
     }
     public Survey(String name){
@@ -47,5 +50,13 @@ public class Survey {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
     }
 }

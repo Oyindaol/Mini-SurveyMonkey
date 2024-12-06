@@ -47,7 +47,7 @@ public class HomePageControllerTest {
 
         when(surveyRepository.findByName(surveyName)).thenReturn(Optional.of(survey));
 
-        String redirectUrl = homePageController.searchSurvey(surveyName);
+        String redirectUrl = homePageController.searchSurvey(surveyName, model);
 
         assertEquals("redirect:/survey/" + survey.getId() + "/respond", redirectUrl);
         verify(surveyRepository).findByName(surveyName);
@@ -60,7 +60,7 @@ public class HomePageControllerTest {
         when(surveyRepository.findByName(surveyName)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
-            homePageController.searchSurvey(surveyName);
+            homePageController.searchSurvey(surveyName, model);
         });
 
         assertEquals("Survey not found with name: Non-Existent Survey", exception.getMessage());

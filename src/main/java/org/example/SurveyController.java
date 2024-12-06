@@ -73,7 +73,14 @@ public class SurveyController {
         }
         Survey survey = surveyRepository.findById(surveyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
+
         model.addAttribute("survey", survey);
+
+        if (!survey.isClosed()) {
+            model.addAttribute("message", "Please close the survey to view the chart(s)");
+            return "displaysurvey";
+        }
+
         model.addAttribute("surveyId", surveyId);
         return "viewcharts";
     }
@@ -109,6 +116,10 @@ public class SurveyController {
                     break;
 
                 case OPEN_ENDED:
+                    questionData.put("type", "open_ended");
+                    questionData.put("responses", question.getAnswers().stream()
+                            .map(Answer::getSurveyAnswer)
+                            .toList());
                     break;
             }
 
@@ -118,4 +129,12 @@ public class SurveyController {
         return chartData;
     }
 
+    @PostMapping("/{surveyId}/close")
+    public String closeSurvey(@PathVariable Long surveyId) {
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
+        survey.setClosed(true);
+        surveyRepository.save(survey);
+        return "redirect:/survey/getbyid/" + surveyId;
+    }
 }
