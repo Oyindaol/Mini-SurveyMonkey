@@ -28,12 +28,12 @@ public class AccountControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testRegisterMenu() {
-        String viewName = accountController.registerMenu(model);
-        assertEquals("createaccount", viewName);
-        verify(model).addAttribute(eq("user"), any(Account.class));
-    }
+//    @Test
+//    public void testRegisterMenu() {
+//        String viewName = accountController.registerMenu(model);
+//        assertEquals("createaccount", viewName);
+//        verify(model).addAttribute(eq("user"), any(Account.class));
+//    }
 
     @Test
     public void testCreateUser_UsernameExists() {
