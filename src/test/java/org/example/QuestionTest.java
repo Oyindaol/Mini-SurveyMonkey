@@ -76,21 +76,6 @@ public class QuestionTest {
         assertEquals(ans, question.getAnswers().get(0));
     }
 
-    @Test
-    public void testGetSetMinValue() {
-        Question question = new Question();
-        Integer minValue = 1;
-        question.setMinValue(minValue);
-        assertEquals(minValue, question.getMinValue());
-    }
-
-    @Test
-    public void testGetSetMaxValue() {
-        Question question = new Question();
-        Integer maxValue = 10;
-        question.setMaxValue(maxValue);
-        assertEquals(maxValue, question.getMaxValue());
-    }
 
     @Test
     public void testGetSetOptions() {
@@ -114,8 +99,6 @@ public class QuestionTest {
     public void testValidateAnswer_Numeric_Valid() {
         Question question = new Question();
         question.setQuestionType(Question.QuestionType.NUMERIC);
-        question.setMinValue(1);
-        question.setMaxValue(10);
 
         assertTrue(question.validateAnswer("5"));
         assertTrue(question.validateAnswer("1"));
@@ -126,8 +109,6 @@ public class QuestionTest {
     public void testValidateAnswer_Numeric_Invalid() {
         Question question = new Question();
         question.setQuestionType(Question.QuestionType.NUMERIC);
-        question.setMinValue(1);
-        question.setMaxValue(10);
 
         assertFalse(question.validateAnswer("0"));
         assertFalse(question.validateAnswer("11"));
@@ -165,8 +146,6 @@ public class QuestionTest {
     public void testCalculateAndSaveStatistics_Numeric_WithData() {
         Survey survey = new Survey("Numeric Data Survey");
         Question question = new Question(survey, "Rate 1-5", Question.QuestionType.NUMERIC);
-        question.setMinValue(1);
-        question.setMaxValue(5);
         List<Answer> answers = new ArrayList<>();
         answers.add(createAnswer(question, "3"));
         answers.add(createAnswer(question, "1"));

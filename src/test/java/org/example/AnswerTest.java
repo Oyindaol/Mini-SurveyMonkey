@@ -16,8 +16,6 @@ public class AnswerTest {
         Survey survey = new Survey("Numeric Survey");
         survey.setId(2L);
         Question q = new Question(survey, "Rate 1-10", Question.QuestionType.NUMERIC);
-        q.setMinValue(1);
-        q.setMaxValue(10);
         return q;
     }
 

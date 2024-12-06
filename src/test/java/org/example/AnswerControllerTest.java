@@ -168,8 +168,6 @@ public class AnswerControllerTest {
 
         Question question = new Question(survey, "Rate 1-5", Question.QuestionType.NUMERIC);
         question.setId(questionId);
-        question.setMinValue(1);
-        question.setMaxValue(5);
         question.setAnswers(new ArrayList<>());
 
         when(questionRepository.findById(questionId)).thenReturn(Optional.of(question));

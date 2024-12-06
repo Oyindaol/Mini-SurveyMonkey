@@ -218,8 +218,6 @@ public class SurveyControllerTest {
 
         Question numericQ = new Question(survey, "Rate 1-5", Question.QuestionType.NUMERIC);
         numericQ.setId(10L);
-        numericQ.setMinValue(1);
-        numericQ.setMaxValue(5);
 
         Question multipleChoiceQ = new Question(survey, "Favourite colour?", Question.QuestionType.MULTIPLE_CHOICE);
         multipleChoiceQ.setId(11L);
@@ -256,8 +254,6 @@ public class SurveyControllerTest {
         assertTrue(numericStats.containsKey("mean"));
         assertTrue(numericStats.containsKey("median"));
         assertTrue(numericStats.containsKey("stdDev"));
-        assertTrue(numericStats.containsKey("min"));
-        assertTrue(numericStats.containsKey("max"));
 
         Map<String, Object> mcData = (Map<String, Object>) chartData.get("question_11");
         assertEquals("Favourite colour?", mcData.get("questionName"));
