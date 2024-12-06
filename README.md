@@ -76,6 +76,7 @@ For Milestone 3, the final demo, the system is now usable and useful based on th
 
 ### Testing
 To test with Jacoco, simply use Maven to generate a target folder. Then, navigate to target/site/index.html and open index.html in your preferred browser. You will be able to view the coverage report there.
-![image](https://github.com/user-attachments/assets/7205d085-3933-4cc2-8cbc-eb3f13b05c31)
+![image](https://github.com/user-attachments/assets/aac1a176-18fd-4025-8eac-c608a454fa4b)
+
 
 
