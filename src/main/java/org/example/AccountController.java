@@ -31,10 +31,8 @@ public class AccountController {
         }
 
         //Validate the raw password against the policy
-
         if(!Account.isValidPassword(account.getTempPassword())){
             return "redirect:/account/register?message=InvalidPassword";
-
         }
 
         //If the username doesn't exist, hash the password and save the new account
