@@ -25,10 +25,6 @@ public class Question {
 
     private String surveyQuestion;
 
-    //For numeric question
-    private Integer minValue;
-    private Integer maxValue;
-
     //For Multiple Choice Question
     @ElementCollection
     private List<String> options;
@@ -112,22 +108,6 @@ public class Question {
 
     public void setQuestionType(QuestionType questionType) {
         this.questionType = questionType;
-    }
-
-    public Integer getMinValue() {
-        return minValue;
-    }
-
-    public void setMinValue(Integer minValue) {
-        this.minValue = minValue;
-    }
-
-    public Integer getMaxValue() {
-        return maxValue;
-    }
-
-    public void setMaxValue(Integer maxValue) {
-        this.maxValue = maxValue;
     }
 
     public List<String> getOptions() {
@@ -231,12 +211,7 @@ public class Question {
             case OPEN_ENDED:
                 return true; // Open-ended answers need no validation
             case NUMERIC:
-                try {
-                    int numericAnswer = Integer.parseInt(answer);
-                    return numericAnswer >= this.minValue && numericAnswer <= this.maxValue;
-                } catch (NumberFormatException e) {
-                    return false; // Invalid number format
-                }
+                return true;
             case MULTIPLE_CHOICE:
                 return this.options != null && this.options.contains(answer);
             default:
