@@ -28,6 +28,7 @@ public class AccountControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+
     @Test
     public void testRegisterMenu() {
         String viewName = accountController.registerMenu(model, "");
