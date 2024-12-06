@@ -11,10 +11,8 @@
 </a>
 <div class="container">
   <h1>Register an Account</h1>
-  <div th:if="${errorMessage}" style="color: red;">
-    <p th:text="${errorMessage}"></p>
-  </div>
   <form th:action="@{/account/register}" th:object="${user}" method="post">
+    <p th:if="${message != ''}" style="color: red; font-weight: bold;" th:text="${message}"></p>
     <label for="username">Username:</label>
     <input type="text" id="username" th:field="*{username}" placeholder="Enter username here..." required />
 

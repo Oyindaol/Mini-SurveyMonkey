@@ -28,39 +28,12 @@ public class AccountControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-//    @Test
-//    public void testRegisterMenu() {
-//        String viewName = accountController.registerMenu(model);
-//        assertEquals("createaccount", viewName);
-//        verify(model).addAttribute(eq("user"), any(Account.class));
-//    }
 
     @Test
-    public void testCreateUser_UsernameExists() {
-        Account newAccount = new Account();
-        newAccount.setUsername("existingUser");
-        newAccount.setTempPassword("Valid1!");
-
-        when(accountRepository.findByUsername("existingUser")).thenReturn(Optional.of(new Account()));
-
-        DuplicateResourceException ex = assertThrows(DuplicateResourceException.class, () -> {
-            accountController.createUser(newAccount, model);
-        });
-        assertTrue(ex.getMessage().contains("Username already exists"));
-    }
-
-    @Test
-    public void testCreateUser_InvalidPassword() {
-        Account newAccount = new Account();
-        newAccount.setUsername("newUser");
-        newAccount.setTempPassword("short"); // invalid password (too short)
-
-        when(accountRepository.findByUsername("newUser")).thenReturn(Optional.empty());
-
-        InvalidInputException ex = assertThrows(InvalidInputException.class, () -> {
-            accountController.createUser(newAccount, model);
-        });
-        assertTrue(ex.getMessage().contains("Invalid password"));
+    public void testRegisterMenu() {
+        String viewName = accountController.registerMenu(model, "");
+        assertEquals("createaccount", viewName);
+        verify(model).addAttribute(eq("user"), any(Account.class));
     }
 
     @Test

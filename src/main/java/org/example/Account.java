@@ -64,7 +64,10 @@ public class Account {
 
     public String getHashedPassword(){return  hashedPassword;}
 
-    public void setHashedPassword(String password){hashedPassword = hashPassword(password);}
+    public void setHashedPassword(String password){
+        hashedPassword = hashPassword(password);
+        this.tempPassword = password;
+    }
 
     public List<Survey> getSurveys() {
         return surveys;
