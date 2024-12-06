@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            console.log("Chart data received:", data);
 
             const keys = Object.keys(data);
 
@@ -107,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 } else if (questionType === "multiple_choice") {
                     const percentages = questionData.percentages;
-                    console.log(`Multiple choice data for ${key}:`, percentages);
                     new Chart(canvas, {
                         type: 'pie',
                         data: {
