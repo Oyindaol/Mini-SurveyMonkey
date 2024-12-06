@@ -57,6 +57,7 @@ public class AnswerController {
                 surveyid.set(question.getSurvey().getId());
             }
         });
-        return "redirect:/survey/getbyid/" + surveyid;
+//        return "redirect:/survey/getbyid/" + surveyid;
+        return "answerRecorded.html";
     }
 }
