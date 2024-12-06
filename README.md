@@ -66,17 +66,15 @@ For Milestone 3, the final demo, the system is now usable and useful based on th
 6. Use the FF4J, feature toggle feature for the statistics graphs.
 7. Proper error handling and no dangling links.
 8. Attractive UI for efficient usability.
+9. Implemented the close survey feature, which can be done by clicking the application logo.
 
 ### This is our current UML class diagram:
-
+![image](https://github.com/user-attachments/assets/c71b911e-b79a-4cf9-9326-697aedb5cf76)
 
 ### This is our current Database Schema:
 ![image](https://github.com/user-attachments/assets/aac2b008-a65c-4b8e-bcf8-a1e1771ee403)
 
 
 ### Testing
-To test with Jacoco, simply use Maven to generate a target folder. Then, navigate to target/site/index.html and open index.html in your preferred browser. You will be able to view the coverage report there.
+To test with Jacoco, simply use Maven to generate a target folder. Then, navigate to target/site/index.html and open index.html in your preferred browser. You will be able to view the coverage report there. We achieved 97% coverage.
 ![image](https://github.com/user-attachments/assets/aac1a176-18fd-4025-8eac-c608a454fa4b)
-
-
-
