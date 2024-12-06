@@ -16,7 +16,8 @@ public class AccountController {
 
 
     @GetMapping("/register")
-    public String registerMenu(Model model) {
+    public String registerMenu(Model model, @RequestParam(defaultValue = "") String message) {
+        model.addAttribute("message", message);
         model.addAttribute("user", new Account());
         return "createaccount";
     }
@@ -25,21 +26,16 @@ public class AccountController {
         //Check if username already exists
         if (accountRepository.findByUsername(account.getUsername()).isPresent()) {
             //If username exists, add an error message and return to the registration form
-            model.addAttribute("errorMessage", "Username already exists. Please choose a different name.");
-            return "createaccount";
+            return "redirect:/account/register?message=UsernameExists";
         }
 
-        //get the un-hashed password the user just input
-        String rawpassword = account.getTempPassword();
-
         //Validate the raw password against the policy
-        if(!Account.isValidPassword(rawpassword)){
-            model.addAttribute("errorMessage", "Invalid password. Please try again.");
-            return "createaccount";
+        if(!Account.isValidPassword(account.getTempPassword())){
+            return "redirect:/account/register?message=InvalidPassword";
         }
 
         //If the username doesn't exist, hash the password and save the new account
-        account.setHashedPassword(Account.hashPassword(account.getHashedPassword()));
+        account.setTempPassword(null);
         accountRepository.save(account);
         return "redirect:/account/" + account.getId() + "/display";
     }
