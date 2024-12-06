@@ -2,7 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("DOMContentLoaded event fired");
 
     const container = document.getElementById('charts-container');
-
+    if (!container) {
+        console.error("Charts container not found!");
+        return;
+    }
     const surveyId = container.dataset.surveyId;
     if (!surveyId) {
         return;
