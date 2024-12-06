@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>Display Account</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
 </head>
 <body>
+<a href="/">
+  <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
+</a>
 <h1 th:text="'User: ' + ${user.username}">Survey Title</h1>
 <div th:each="survey : ${user.surveys}">
   <a th:href="@{|/survey/getbyid/${survey.id}|}" th:text="${survey.name}">Survey Name</a>

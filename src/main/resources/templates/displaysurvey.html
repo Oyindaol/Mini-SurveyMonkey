@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Display Survey</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
 </head>
 <body>
+<a href="/">
+    <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
+</a>
     <h1 th:text="'Survey: ' + ${survey.name}">Survey Title</h1>
     <div th:each="question : ${survey.questions}">
         <h2 th:text="${question.surveyQuestion}">question</h2>
@@ -14,9 +16,15 @@
             <li th:each="answer : ${question.answers}" th:text="${answer.surveyAnswer}">answer</li>
         </ul>
     </div>
-    <a th:href="@{|/survey/${survey.id}/question/create|}" class="btn">Add a Question</a>
+    <a th:href="@{|/survey/${survey.id}/question/create|}" class="btn btn-small">Add a Question</a>
     <p th:text="'link: http://localhost:8080/survey/' + ${survey.id} + '/respond'">Survey Title</p>
-    <a th:href="@{|/survey/${survey.id}/charts|}" class="btn">View Charts</a>
+    <a th:href="@{|/survey/${survey.id}/charts|}" class="btn btn-small">View Charts</a>
+    <div th:if="${message}">
+        <p th:text="${message}" style="font-weight: bold; color: red;"></p>
+    </div>
+    <form th:action="@{|/survey/${survey.id}/close|}" method="post">
+        <button type="submit" class="btn btn-small">Close Survey</button>
+    </form>
 </body>
 <footer>
     Group 17 - Mini-SurveyMonkey

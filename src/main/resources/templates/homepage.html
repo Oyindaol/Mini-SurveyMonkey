@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini-SurveyMonkey</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
 </head>
 <body>
+<a href="/">
+    <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
+</a>
 <main class="container">
     <h1>Welcome to Mini-SurveyMonkey</h1>
+    <div th:if="${message}">
+        <p th:text="${message}" style="font-weight: bold; color: red;"></p>
+    </div>
     <form th:action="@{/}" method="post">
         <label for="surveyName">Search Survey:</label>
         <input type="text" id="surveyName" name="surveyName" placeholder="Enter survey name..." required />

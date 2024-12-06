@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Response</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
 </head>
 <body>
+<a href="/">
+    <img src="/images/Mini-SM-Logo.png" alt="Mini-SurveyMonkey Logo">
+</a>
 <main class="container">
     <h1 th:text="'Survey: ' + ${survey.name}">Survey Title</h1>
     <form th:action="@{|/survey/${surveyId}/respond|}" method="post">

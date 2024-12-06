@@ -20,9 +20,15 @@ public class HomePageController {
     }
 
     @PostMapping
-    public String searchSurvey(@RequestParam("surveyName") String surveyName) {
+    public String searchSurvey(@RequestParam("surveyName") String surveyName, Model model) {
         Survey survey = surveyRepository.findByName(surveyName)
                 .orElseThrow(() -> new ResourceNotFoundException("Survey not found with name: " + surveyName));
+
+        if (survey.isClosed()) {
+            model.addAttribute("message", "The survey you searched is now closed");
+            return "homepage";
+        }
+
         return "redirect:/survey/" + survey.getId() + "/respond";
     }
 }

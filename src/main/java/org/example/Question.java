@@ -26,8 +26,8 @@ public class Question {
     private String surveyQuestion;
 
     //For numeric question
-    private Integer minValue;
-    private Integer maxValue;
+    private Integer minValue = 0;
+    private Integer maxValue = 100;
 
     //For Multiple Choice Question
     @ElementCollection
