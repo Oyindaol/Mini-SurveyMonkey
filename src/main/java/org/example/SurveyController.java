@@ -34,6 +34,8 @@ public class SurveyController {
 
     @GetMapping("/create/{accountId}")
     public String displaySurveyFormOnAcount(@PathVariable Long accountId,Model model) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found with ID: " + accountId));
         model.addAttribute("accountId", accountId);
         model.addAttribute("survey", new Survey());
         return "createsurveywithaccount";
@@ -41,7 +43,8 @@ public class SurveyController {
     @PostMapping("/create/{accountID}")
     public String createSurveyOnAccount(@ModelAttribute Survey survey,@PathVariable Long accountID) {
         surveyRepository.save(survey);
-        Account account = accountRepository.findById(accountID).orElseThrow(() -> new RuntimeException("Account not found"));
+        Account account = accountRepository.findById(accountID)
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found with ID: " + accountID));
         account.addSurvey(survey);
         accountRepository.save(account);
         return "redirect:/survey/" + survey.getId() + "/question/create";
@@ -49,14 +52,16 @@ public class SurveyController {
 
     @GetMapping("/getbyid/{id}")
     public String getSurveyById(@PathVariable Long id, Model model) {
-        Survey survey = surveyRepository.findById(id).orElseThrow(() -> new RuntimeException("Survey not found"));
+        Survey survey = surveyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + id));
         model.addAttribute("survey", survey);
         return "displaysurvey";
     }
 
     @GetMapping("/getbyname/{name}")
     public String getSurveyByName(@PathVariable String name, Model model) {
-        Survey survey = surveyRepository.findByName(name).orElseThrow(() -> new RuntimeException("Survey not found"));
+        Survey survey = surveyRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with name: " + name));
         model.addAttribute("survey", survey);
         return "displaysurvey";
     }
@@ -64,10 +69,18 @@ public class SurveyController {
     @GetMapping("/{surveyId}/charts")
     public String viewSurveyCharts(@PathVariable Long surveyId, Model model) {
         if(!ff4j.check("CHART_GENERATOR")){
-            throw new RuntimeException("Chart generator feature is disabled");
+            throw new FeatureDisabledException("Chart generator feature is disabled");
         }
-        Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new RuntimeException("Survey not found"));
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
+
         model.addAttribute("survey", survey);
+
+        if (!survey.isClosed()) {
+            model.addAttribute("message", "Please close the survey to view the chart(s)");
+            return "displaysurvey";
+        }
+
         model.addAttribute("surveyId", surveyId);
         return "viewcharts";
     }
@@ -75,7 +88,8 @@ public class SurveyController {
     @GetMapping("/{id}/charts/data")
     @ResponseBody
     public Map<String, Object> getSurveyChartData(@PathVariable Long id) {
-        Survey survey = surveyRepository.findById(id).orElseThrow(() -> new RuntimeException("Survey not found"));
+        Survey survey = surveyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + id));
         Map<String, Object> chartData = new HashMap<>();
 
         for (Question question : survey.getQuestions()) {
@@ -102,6 +116,10 @@ public class SurveyController {
                     break;
 
                 case OPEN_ENDED:
+                    questionData.put("type", "open_ended");
+                    questionData.put("responses", question.getAnswers().stream()
+                            .map(Answer::getSurveyAnswer)
+                            .toList());
                     break;
             }
 
@@ -111,4 +129,12 @@ public class SurveyController {
         return chartData;
     }
 
+    @PostMapping("/{surveyId}/close")
+    public String closeSurvey(@PathVariable Long surveyId) {
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
+        survey.setClosed(true);
+        surveyRepository.save(survey);
+        return "redirect:/survey/getbyid/" + surveyId;
+    }
 }

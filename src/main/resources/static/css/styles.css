@@ -81,6 +81,11 @@ button, .btn {
     transition: background-color 0.3s ease;
 }
 
+.btn-small {
+    width: auto; /* Allows the button width to fit the content */
+    padding: 0.5rem 1rem; /* Adjust padding for a smaller button */
+}
+
 button:hover, .btn:hover {
     background-color: #0056b3;
 }

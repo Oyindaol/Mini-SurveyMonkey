@@ -27,11 +27,14 @@ public class AccountController {
         if (accountRepository.findByUsername(account.getUsername()).isPresent()) {
             //If username exists, add an error message and return to the registration form
             return "redirect:/account/register?message=UsernameExists";
+
         }
 
         //Validate the raw password against the policy
+
         if(!Account.isValidPassword(account.getTempPassword())){
             return "redirect:/account/register?message=InvalidPassword";
+
         }
 
         //If the username doesn't exist, hash the password and save the new account
@@ -48,20 +51,26 @@ public class AccountController {
     }
     @PostMapping("/login")
     public String loginUser(@ModelAttribute Account account) {
-        Account account2 = accountRepository.findByUsername(account.getUsername()).orElse(null);
-        if(account2 == null){
-            return "redirect:/account/login?message=AccountNotFound";
+        Account accountInDb = accountRepository.findByUsername(account.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found with username: " + account.getUsername()));   //.orElse(null);
+
+        if(!accountInDb.passwordMatch(account.getHashedPassword())){
+            throw new InvalidInputException("Invalid password. Please try again.");
         }
-        if(account2.getHashedPassword().equals(account.getHashedPassword())){
-            return "redirect:/account/" + account2.getId() + "/display";
-        }
-        return "redirect:/account/login?message=InvalidPassword";
+//        if(account2 == null){
+//            return "redirect:/account/login?message=AccountNotFound";
+//        }
+//        if(account2.getHashedPassword().equals(account.getHashedPassword())){
+//            return "redirect:/account/" + account2.getId() + "/display";
+//        }
+        return "redirect:/account/" + accountInDb.getId() + "/display";
 
     }
 
     @GetMapping("/{id}/display")
     public String displayUser(@PathVariable Long id, Model model){
-        Account account = accountRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + id));
         model.addAttribute("user", account);
         return "displayaccount";
     }

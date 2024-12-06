@@ -1,7 +1,6 @@
 package org.example;
 
 import static org.mockito.Mockito.*;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.springframework.boot.SpringApplication;
