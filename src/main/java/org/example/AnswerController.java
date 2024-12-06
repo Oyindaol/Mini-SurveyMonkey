@@ -24,11 +24,10 @@ public class AnswerController {
 
     @GetMapping("/respond")
     public String displaySurveyQuestions(@PathVariable Long surveyId, Model model) {
-        Survey survey = surveyRepository.findById(surveyId).orElseThrow(() -> new RuntimeException("Survey not found"));
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
         model.addAttribute("survey", survey);
-
         model.addAttribute("answer", new Answer());
-
         return "answersurvey";
     }
 
@@ -40,13 +39,19 @@ public class AnswerController {
                 // Extract question ID from the key
                 String questionIdStr = key.substring(8, key.indexOf("]"));
                 Long questionId = Long.parseLong(questionIdStr);
-                Question question = questionRepository.findById(questionId).orElseThrow(() -> new RuntimeException("Survey not found"));
+                Question question = questionRepository.findById(questionId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Question not found with ID: " + questionId));
 
 
                 // Create and save the answer
                 Answer answer = new Answer();
                 answer.setQuestion(question);
-                answer.setSurveyAnswer(value);
+
+                try {
+                    answer.setSurveyAnswer(value);
+                } catch (IllegalArgumentException e){
+                    throw new InvalidInputException(e.getMessage());
+                }
                 question.addAnswer(answer);
                 answerRepository.save(answer);
                 surveyid.set(question.getSurvey().getId());

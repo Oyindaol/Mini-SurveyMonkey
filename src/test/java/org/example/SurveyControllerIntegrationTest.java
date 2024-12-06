@@ -7,10 +7,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -70,29 +68,6 @@ public class SurveyControllerIntegrationTest {
                 .andExpect(model().attribute("survey", hasProperty("name", is(surveyName))));
     }
 
-    /**
-     * WIP
-     * testGetSurveyById_NotFound(): requires runtime error handling; possibly with an error page
-     * testCreateSurvey_MissingName(): there's an error mismatch, will need to look further into
-     */
-//    @Test
-//    public void testGetSurveyById_NotFound() throws Exception {
-//        Long invalidSurveyId = 999L;
-//
-//        mockMvc.perform(get("/survey/getbyid/{id}", invalidSurveyId))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("error"))
-//                .andExpect(model().attribute("errorMessage", "Survey not found"));
-//    }
-//
-//    @Test
-//    public void testCreateSurvey_MissingName() throws Exception {
-//        mockMvc.perform(post("/survey")
-//                        .param("name", ""))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("createsurvey"))
-//                .andExpect(model().attributeHasFieldErrors("survey", "name"));
-//    }
 
     private Long extractSurveyId(String redirectUrl) {
         Pattern pattern = Pattern.compile("/survey/(\\d+)/question/create");
@@ -103,4 +78,6 @@ public class SurveyControllerIntegrationTest {
             throw new IllegalArgumentException("Cannot extract survey ID from redirect URL");
         }
     }
+
+
 }

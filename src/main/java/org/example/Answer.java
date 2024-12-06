@@ -37,7 +37,7 @@ public class Answer {
 
     public void setSurveyAnswer(String surveyAnswer) {
         if (question != null && !question.validateAnswer(surveyAnswer)) {
-            throw new IllegalArgumentException("Invalid answer for question type: " + question.getQuestionType());
+            throw new InvalidInputException("Invalid answer for question type: " + question.getQuestionType());
         }
         this.surveyAnswer = surveyAnswer;
     }

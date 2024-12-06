@@ -20,6 +20,8 @@ public class QuestionController {
 
     @GetMapping("/create")
     public String displayQuestionFrom(@PathVariable Long surveyId, Model model) {
+        Survey survey = surveyRepository.findById(surveyId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
         model.addAttribute("surveyId", surveyId);
         model.addAttribute("question", new Question());
         return "createquestion";
@@ -30,23 +32,29 @@ public class QuestionController {
             String questionType, @RequestParam(value = "multipleChoiceInput", required = false) String answerChoice) {
 
         Survey survey = surveyRepository.findById(surveyId)
-                .orElseThrow(() -> new RuntimeException("Survey not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Survey not found with ID: " + surveyId));
 
-        question.setQuestionType(Question.QuestionType.valueOf(questionType));
-        if (questionType.equals("MULTIPLE_CHOICE")){
-            String[] temp = answerChoice.split(",");
+        try{
+            question.setQuestionType(Question.QuestionType.valueOf(questionType));
+        } catch (IllegalArgumentException e){
+            throw new InvalidInputException("Invalid question type: " + questionType);
+        }
+        if(question.getQuestionType() == Question.QuestionType.MULTIPLE_CHOICE) {
+            if (answerChoice == null || answerChoice.trim().isEmpty()) {
+                throw new InvalidInputException("Multiple choice options are required for MULTIPLE_CHOICE question type.");
+            }
+            String[] options = answerChoice.split(",");
             question.setOptions(new ArrayList<>());
-            for(String s:temp){
-                question.getOptions().add(s);
+            for (String option : options) {
+                question.getOptions().add(option.trim());
             }
         }
+
         question.setSurvey(survey);
         survey.addQuestion(question);
 
         questionRepository.save(question);
         surveyRepository.save(survey);
-
-        Long questionId = question.getId();
 
         return "redirect:/survey/getbyid/" + surveyId;
     }

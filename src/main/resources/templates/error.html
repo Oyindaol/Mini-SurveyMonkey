@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error - Mini-SurveyMonkey</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<main class="container">
+    <h1>Oops! Something went wrong.</h1>
+    <p>We're sorry, but the page you're looking for cannot be found or an unexpected error has occurred.</p>
+
+    <div>
+        <h2 th:text="'Error ' + ${status} + ' - ' + ${error}">Error Details</h2>
+        <p th:if="${message}" th:text="'Message: ' + ${message}"></p>
+        <p th:if="${path}" th:text="'Path: ' + ${path}"></p>
+    </div>
+
+    <a href="/" class="btn">Return to Home Page</a>
+</main>
+<footer>
+    Group 17 - Mini-SurveyMonkey
+</footer>
+</body>
+</html>

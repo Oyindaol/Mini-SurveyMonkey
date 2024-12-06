@@ -1,21 +1,21 @@
 package org.example;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.mockito.*;
 import org.springframework.ui.Model;
-import org.junit.jupiter.api.BeforeEach;
-
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 public class HomePageControllerTest {
+
     @Mock
     private SurveyRepository surveyRepository;
 
@@ -38,8 +38,6 @@ public class HomePageControllerTest {
         verify(model).addAttribute("surveyName", "");
     }
 
-
-
     @Test
     public void testSearchSurvey_Success() {
         String surveyName = "Customer Satisfaction Survey";
@@ -61,13 +59,12 @@ public class HomePageControllerTest {
 
         when(surveyRepository.findByName(surveyName)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
             homePageController.searchSurvey(surveyName);
         });
 
-        assertEquals("Survey not found", exception.getMessage());
+        assertEquals("Survey not found with name: Non-Existent Survey", exception.getMessage());
         verify(surveyRepository).findByName(surveyName);
+        verify(model, never()).addAttribute(eq("survey"), any());
     }
-
-
 }
