@@ -1,6 +1,6 @@
 [![Java CI with Maven](https://github.com/Oyindaol/Mini-SurveyMonkey/actions/workflows/maven.yml/badge.svg)](https://github.com/Oyindaol/Mini-SurveyMonkey/actions/workflows/maven.yml)
 
-# Mini-SurveyMonkey (Group 17)
+# Mini-SurveyMonkey (SYSC 4806 Group 17)
 Mini-SurveyMonkey is a web application that allows surveyors to create and manage surveys with different types of questions and compile meaningful results from user responses. This project simulates a simplified version of popular survey platforms, designed to be flexible and user-friendly.
 
 Features:
